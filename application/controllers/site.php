@@ -26,6 +26,18 @@ class Site extends CI_Controller
 		$this->checkaccess($access);
 		$data[ 'page' ] = 'dashboard';
 		$data[ 'title' ] = 'Welcome';
+        $data[ 'facebook' ] = false;
+        $data[ 'twitter' ] = false;
+        $facebook = $this->hybridauthlib->authenticate("Facebook");
+        $twitter = $this->hybridauthlib->authenticate("Twitter");
+        if ($facebook->isUserConnected())
+        {
+            $data[ 'facebook' ] = true;
+        }
+        if ($twitter->isUserConnected())
+        {
+            $data[ 'twitter' ] = true;
+        }
 		$this->load->view( 'template', $data );	
 	}
 	public function createuser()
