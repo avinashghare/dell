@@ -28,10 +28,20 @@ class HAuth extends CI_Controller {
 					$user_profile = $service->getUserProfile();
 
 					log_message('info', 'controllers.HAuth.login: user profile:'.PHP_EOL.print_r($user_profile, TRUE));
-
-					$data['message'] = $user_profile;
+                    $userid=$this->session->userdata("id");
+					$data["message"]=$user_profile;
 					
-					$this->load->view('json',$data);
+                    if ($this->uri->segment(3) == 'Facebook')
+                    {
+                        $this->db->query("UPDATE `user` SET `facebookid`='$user_profile->identifier' WHERE `id`='$userid'");
+                    }
+                    if ($this->uri->segment(3) == 'Twitter')
+                    {
+                        $this->db->query("UPDATE `user` SET `twitterid`='$user_profile->identifier' WHERE `id`='$userid'");
+                    }
+                    
+                    $data['redirect']="site/index";
+			        $this->load->view("redirect",$data);
 				}
 				else // Cannot authenticate user
 				{
