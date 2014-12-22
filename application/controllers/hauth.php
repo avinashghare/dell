@@ -14,7 +14,7 @@ class HAuth extends CI_Controller {
 		try
 		{
 			log_message('debug', 'controllers.HAuth.login: loading HybridAuthLib');
-			$this->load->library('HybridAuthLib');
+			//$this->load->library('HybridAuthLib');
 
 			if ($this->hybridauthlib->providerEnabled($provider))
 			{
@@ -30,7 +30,7 @@ class HAuth extends CI_Controller {
 					log_message('info', 'controllers.HAuth.login: user profile:'.PHP_EOL.print_r($user_profile, TRUE));
 
 					$data['message'] = $user_profile;
-
+					
 					$this->load->view('json',$data);
 				}
 				else // Cannot authenticate user
