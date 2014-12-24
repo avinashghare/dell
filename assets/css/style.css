@@ -3951,6 +3951,3 @@ span.customSelect.changed {
 .customSelectInner {
     background:url(../img/customSelect-arrow.gif) no-repeat center right;
 }
-.facebooklogin.btn,.twitterlogin.btn {
-    display:none;
-}

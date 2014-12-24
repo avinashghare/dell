@@ -8,7 +8,7 @@ class User_model extends CI_Model
 	{
 		
 		$password=md5($password);
-		$query ="SELECT `user`.`id`,`user`.`name` as `name`,`email`,`user`.`accesslevel`,`accesslevel`.`name` as `access` FROM `user`
+		$query ="SELECT `user`.`id`,`user`.`name` as `name`,`user`.`email`,`user`.`accesslevel`,`accesslevel`.`name` as `access`,`user`.`facebookid`,`user`.`twitterid` FROM `user`
 		INNER JOIN `accesslevel` ON `user`.`accesslevel` = `accesslevel`.`id` 
 		WHERE `email` LIKE '$username' AND `password` LIKE '$password' AND `status`=1 AND `accesslevel` IN (1,2) ";
 		$row =$this->db->query( $query );
@@ -22,6 +22,8 @@ class User_model extends CI_Model
 				'email' => $this->email,
 				'name' => $this->name ,
 				'accesslevel' => $row->accesslevel ,
+				'facebook' => $row->facebookid ,
+				'twitter' => $row->twitterid ,
 				'logged_in' => 'true',
 			);
 			$this->session->set_userdata( $newdata );

@@ -24,21 +24,22 @@ class Site extends CI_Controller
 	{
 		$access = array("1","2");
 		$this->checkaccess($access);
+        if($this->session->userdata("accesslevel")==1)
+        {
 		$data[ 'page' ] = 'dashboard';
 		$data[ 'title' ] = 'Welcome';
-        $data[ 'facebook' ] = false;
-        $data[ 'twitter' ] = false;
-        $facebook = $this->hybridauthlib->authenticate("Facebook");
-        $twitter = $this->hybridauthlib->authenticate("Twitter");
-        if ($facebook->isUserConnected())
-        {
-            $data[ 'facebook' ] = true;
+        $data[ 'facebook' ] = $this->session->userdata("facebook")=="";
+        $data[ 'twitter' ] = $this->session->userdata("twitter")=="";
         }
-        if ($twitter->isUserConnected())
+        elseif($this->session->userdata("accesslevel")==2)
         {
-            $data[ 'twitter' ] = true;
+		$data[ 'page' ] = 'normaluserdashboard';
+		$data[ 'title' ] = 'Welcome';
+        $data[ 'facebook' ] = $this->session->userdata("facebook")=="";
+        $data[ 'twitter' ] = $this->session->userdata("twitter")=="";
         }
 		$this->load->view( 'template', $data );	
+            
 	}
 	public function createuser()
 	{
