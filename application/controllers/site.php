@@ -33,10 +33,14 @@ class Site extends CI_Controller
         }
         elseif($this->session->userdata("accesslevel")==2)
         {
-		$data[ 'page' ] = 'normaluserdashboard';
+		$data[ 'page' ] = 'checkfacebooktwitter';
 		$data[ 'title' ] = 'Welcome';
         $data[ 'facebook' ] = $this->session->userdata("facebook")=="";
         $data[ 'twitter' ] = $this->session->userdata("twitter")=="";
+            if(!$data['twitter'] && !$data[ 'facebook' ])
+            {
+                $data[ 'page' ] = 'normaluserdashboard';
+            }
         }
 		$this->load->view( 'template', $data );	
             
@@ -839,9 +843,233 @@ class Site extends CI_Controller
 	}
     
     
+    public function viewnormaluserprofile()
+    {
+		$access = array("2");
+		$this->checkaccess($access);
+        $id=$this->session->userdata('id');
+        $data['before']=$this->user_model->getnormaluserdata($id);
+        $data['page']='normaluserprofile';
+		$data[ 'title' ] = 'Profile';
+		$this->load->view( 'template', $data );
+    }
+    
+    
+    public function viewfacebookpostold()
+    {
+		$access = array("2");
+		$this->checkaccess($access);
+        $id=$this->session->userdata('id');
+        $data['before']=$this->user_model->getnormaluserfacebookpost($id);
+        $data['page']='viewfacebookpost';
+		$data[ 'title' ] = 'Facebook Posts';
+		$this->load->view( 'template', $data );
+    }
+    
+    function viewfacebookpost()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+		$data['page']='viewfacebookpost';
+        $data['base_url'] = site_url("site/viewfacebookpostjson");
+        
+		$data['title']='View Facebook Post';
+		$this->load->view('template',$data);
+	} 
+    function viewfacebookpostjson()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+        //SELECT `userpost`.`id`, `userpost`.`user`, `userpost`.`post`, `userpost`.`likes`, `userpost`.`share` ,`post`.`text`,`post`.`posttype`,`post`.`timestamp`,`user`.`name` AS `username`
+        
+        $elements=array();
+        $elements[0]=new stdClass();
+        $elements[0]->field="`userpost`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`userpost`.`user`";
+        $elements[1]->sort="1";
+        $elements[1]->header="User";
+        $elements[1]->alias="user";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`userpost`.`post`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Post";
+        $elements[2]->alias="post";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`userpost`.`likes`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Likes";
+        $elements[3]->alias="likes";
+        
+        
+        $elements[4]=new stdClass();
+        $elements[4]->field="`userpost`.`share`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Share";
+        $elements[4]->alias="share";
+        
+        $elements[5]=new stdClass();
+        $elements[5]->field="`post`.`text`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Text";
+        $elements[5]->alias="text";
+        
+        $elements[6]=new stdClass();
+        $elements[6]->field="`post`.`posttype`";
+        $elements[6]->sort="1";
+        $elements[6]->header="Posttype";
+        $elements[6]->alias="posttype";
+        
+        $elements[7]=new stdClass();
+        $elements[7]->field="`post`.`timestamp`";
+        $elements[7]->sort="1";
+        $elements[7]->header="Timestamp";
+        $elements[7]->alias="timestamp";
+        
+        $elements[8]=new stdClass();
+        $elements[8]->field="`user`.`name`";
+        $elements[8]->sort="1";
+        $elements[8]->header="Name";
+        $elements[8]->alias="name";
+        
+        $elements[9]=new stdClass();
+        $elements[9]->field="`post`.`image`";
+        $elements[9]->sort="1";
+        $elements[9]->header="Image";
+        $elements[9]->alias="image";
+        
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+       
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `userpost` LEFT OUTER JOIN `post` ON `post`.`id`=`userpost`.`post` LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`","WHERE `post`.`posttype`=1");
+        
+		$this->load->view("json",$data);
+	} 
     
     
     
+    
+    function viewtwitterpost()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+		$data['page']='viewtwitterpost';
+        $data['base_url'] = site_url("site/viewtwitterpostjson");
+        
+		$data['title']='View twitter Post';
+		$this->load->view('template',$data);
+	} 
+    function viewfacebookpostjson()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+        //SELECT `userpost`.`id`, `userpost`.`user`, `userpost`.`post`, `userpost`.`likes`, `userpost`.`share` ,`post`.`text`,`post`.`posttype`,`post`.`timestamp`,`user`.`name` AS `username`
+        
+        $elements=array();
+        $elements[0]=new stdClass();
+        $elements[0]->field="`userpost`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`userpost`.`user`";
+        $elements[1]->sort="1";
+        $elements[1]->header="User";
+        $elements[1]->alias="user";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`userpost`.`post`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Post";
+        $elements[2]->alias="post";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`userpost`.`likes`";
+        $elements[3]->sort="1";
+        $elements[3]->header="Likes";
+        $elements[3]->alias="likes";
+        
+        
+        $elements[4]=new stdClass();
+        $elements[4]->field="`userpost`.`share`";
+        $elements[4]->sort="1";
+        $elements[4]->header="Share";
+        $elements[4]->alias="share";
+        
+        $elements[5]=new stdClass();
+        $elements[5]->field="`post`.`text`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Text";
+        $elements[5]->alias="text";
+        
+        $elements[6]=new stdClass();
+        $elements[6]->field="`post`.`posttype`";
+        $elements[6]->sort="1";
+        $elements[6]->header="Posttype";
+        $elements[6]->alias="posttype";
+        
+        $elements[7]=new stdClass();
+        $elements[7]->field="`post`.`timestamp`";
+        $elements[7]->sort="1";
+        $elements[7]->header="Timestamp";
+        $elements[7]->alias="timestamp";
+        
+        $elements[8]=new stdClass();
+        $elements[8]->field="`user`.`name`";
+        $elements[8]->sort="1";
+        $elements[8]->header="Name";
+        $elements[8]->alias="name";
+        
+        $elements[9]=new stdClass();
+        $elements[9]->field="`post`.`image`";
+        $elements[9]->sort="1";
+        $elements[9]->header="Image";
+        $elements[9]->alias="image";
+        
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+       
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `userpost` LEFT OUTER JOIN `post` ON `post`.`id`=`userpost`.`post` LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`","WHERE `post`.`posttype`=1");
+        
+		$this->load->view("json",$data);
+	} 
     
     
     

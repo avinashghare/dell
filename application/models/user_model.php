@@ -10,7 +10,7 @@ class User_model extends CI_Model
 		$password=md5($password);
 		$query ="SELECT `user`.`id`,`user`.`name` as `name`,`user`.`email`,`user`.`accesslevel`,`accesslevel`.`name` as `access`,`user`.`facebookid`,`user`.`twitterid` FROM `user`
 		INNER JOIN `accesslevel` ON `user`.`accesslevel` = `accesslevel`.`id` 
-		WHERE `email` LIKE '$username' AND `password` LIKE '$password' AND `status`=1 AND `accesslevel` IN (1,2) ";
+		WHERE `email` LIKE '$username' AND `password` LIKE '$password'  AND `accesslevel` IN (1,2) ";
 		$row =$this->db->query( $query );
 		if ( $row->num_rows() > 0 ) {
 			$row=$row->row();
@@ -99,6 +99,25 @@ class User_model extends CI_Model
         $return->totalcount=$return->totalcount->totalcount;
 		return $return;
 	}
+	public function getnormaluserdata( $id )
+	{
+		$query=$this->db->query("SELECT `user`.`id` as `id`,`user`.`name` as `name`,`accesslevel`.`name` as `accesslevel`,`user`.`dob` AS `dob`	,`user`.`email` as `email`,`user`.`contact` as `contact`,`user`.`facebookid` as `facebookid`,`user`.`twitterid` as `twitterid`,`user`.`accesslevel` as `access`
+		FROM `user`
+	   INNER JOIN `accesslevel` ON `user`.`accesslevel`=`accesslevel`.`id`
+       WHERE `user`.`id`='$id'")->row();
+		return $query;
+	}
+	
+	public function getnormaluserfacebookpost( $id )
+	{
+		$query=$this->db->query("SELECT `userpost`.`id`, `userpost`.`user`, `userpost`.`post`, `userpost`.`likes`, `userpost`.`share` ,`post`.`text`,`post`.`posttype`,`post`.`timestamp`,`user`.`name` AS `username`
+FROM `userpost` 
+LEFT OUTER JOIN `post` ON `post`.`id`=`userpost`.`post`
+LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
+       WHERE `post`.`posttype`=1")->result();;
+		return $query;
+	}
+	
 	public function beforeedit( $id )
 	{
 		$this->db->where( 'id', $id );

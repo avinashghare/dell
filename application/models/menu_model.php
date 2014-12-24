@@ -108,9 +108,11 @@ class Menu_model extends CI_Model
 	}
 	function viewmenus()
 	{
+        $accesslevel=$this->session->userdata( 'accesslevel' );
 		$query="SELECT `menu`.`id` as `id`,`menu`.`name` as `name`,`menu`.`description` as `description`,`menu`.`keyword` as `keyword`,`menu`.`url` as `url`,`menu2`.`name` as `parentmenu`,`menu`.`linktype` as `linktype`,`menu`.`icon` FROM `menu`
 		LEFT JOIN `menu` as `menu2` ON `menu2`.`id` = `menu`.`parent`  
-		WHERE `menu`.`parent`=0
+        INNER  JOIN `menuaccess` ON  `menuaccess`.`menu`=`menu`.`id`
+		WHERE `menu`.`parent`=0 AND `menuaccess`.`access`='$accesslevel'
 		ORDER BY `menu`.`order` ASC";
 	   
 		$query=$this->db->query($query)->result();
