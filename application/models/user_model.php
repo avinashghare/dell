@@ -101,6 +101,13 @@ class User_model extends CI_Model
 	}
 	public function getnormaluserdata( $id )
 	{
+		$query=$this->db->query("SELECT * FROM `user`
+       WHERE `id`='$id'")->row();
+		return $query;
+	}
+	
+	public function getnormaluserdataold( $id )
+	{
 		$query=$this->db->query("SELECT `user`.`id` as `id`,`user`.`name` as `name`,`accesslevel`.`name` as `accesslevel`,`user`.`dob` AS `dob`	,`user`.`email` as `email`,`user`.`contact` as `contact`,`user`.`facebookid` as `facebookid`,`user`.`twitterid` as `twitterid`,`user`.`accesslevel` as `access`
 		FROM `user`
 	   INNER JOIN `accesslevel` ON `user`.`accesslevel`=`accesslevel`.`id`

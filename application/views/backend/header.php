@@ -129,6 +129,7 @@ $(document).ready(function(){
         </header>
       <!--header end-->
       <!--sidebar start-->
+      <?php if(!isset($nomenu) ) {  ?>
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
@@ -279,6 +280,7 @@ $(document).ready(function(){
               <!-- sidebar menu end-->
           </div>
       </aside>
+      <?php } ?>
       <!--sidebar end-->
       <!--main content start-->
       <section id="main-content">

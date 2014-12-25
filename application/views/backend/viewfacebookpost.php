@@ -23,7 +23,7 @@
                         <th data-field="share">share</th>
                         <th data-field="text">text</th>
                         <th data-field="timestamp">timestamp</th>
-                        <th data-field="action"> Actions </th>
+<!--                        <th data-field="action"> Actions </th>-->
                     </tr>
                 </thead>
                 <tbody>
@@ -36,7 +36,7 @@
 		<script>
             function drawtable(resultrow) {
                 
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.post + "</td><td>" + resultrow.likes + "</td><td>" + resultrow.share + "</td><td>" + resultrow.text + "</td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editcollege?id=');?>"+resultrow.id +"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletecollege?id='); ?>"+resultrow.id +"'><i class='icon-trash '></i></a></td><tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.post + "</td><td>" + resultrow.likes + "</td><td>" + resultrow.share + "</td><td>" + resultrow.text + "</td><td>" + resultrow.timestamp + "</td><tr>";
             }
             generatejquery('<?php echo $base_url;?>');
         </script>
