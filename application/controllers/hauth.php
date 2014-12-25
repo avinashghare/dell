@@ -114,17 +114,29 @@ class HAuth extends CI_Controller {
     public function posttweet()
     {
         $twitter = $this->hybridauthlib->authenticate("Twitter");
-        $data["message"]=$twitter->api()->post("statuses/update.json?status=Testing");
+        $message=$this->input->get("message");
+        $data["message"]=$twitter->api()->post("statuses/update.json?status=$message");
         $this->load->view("json",$data);
     }
     public function postfb()
     {
         $facebook = $this->hybridauthlib->authenticate("Facebook");
-   
-        $data["message"]=$facebook->api()->api("v2.2/me/feed", "post", array(
-          "message" => "Testing",
-            "picture"=> "http://www.wohlig.com/assets/img/logo.png"
-        ));
+        $message=$this->input->get("message");
+        $image=$this->input->get("image");
+        if($image=="")
+        {
+            $data["message"]=$facebook->api()->api("v2.2/me/feed", "post", array(
+                "message" => "$message",
+            ));
+        }
+        else
+        {
+            $data["message"]=$facebook->api()->api("v2.2/me/feed", "post", array(
+                "message" => "$message",
+                "picture"=> "$image"
+            ));
+        }
+        
         $this->load->view("json",$data);
     }
 }
