@@ -114,15 +114,15 @@ class HAuth extends CI_Controller {
     public function posttweet()
     {
         $twitter = $this->hybridauthlib->authenticate("Twitter");
-        $message=$this->input->get("message");
+        $message=$this->input->get_post("message");
         $data["message"]=$twitter->api()->post("statuses/update.json?status=$message");
         $this->load->view("json",$data);
     }
     public function postfb()
     {
         $facebook = $this->hybridauthlib->authenticate("Facebook");
-        $message=$this->input->get("message");
-        $image=$this->input->get("image");
+        $message=$this->input->get_post("message");
+        $image=$this->input->get_post("image");
         if($image=="")
         {
             $data["message"]=$facebook->api()->api("v2.2/me/feed", "post", array(
@@ -136,7 +136,6 @@ class HAuth extends CI_Controller {
                 "picture"=> "$image"
             ));
         }
-        
         $this->load->view("json",$data);
     }
 }
