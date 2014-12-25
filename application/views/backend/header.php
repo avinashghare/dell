@@ -26,6 +26,7 @@
     <script src="<?php echo base_url('assets/js/easy-pie-chart.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/chintantable.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/select2.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/masonry.pkgd.min.js'); ?>"></script>
 <script>
 $(document).ready(function(){
 		$('.datetime').datepicker({
