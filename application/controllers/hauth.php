@@ -115,11 +115,25 @@ class HAuth extends CI_Controller {
     {
         $twitter = $this->hybridauthlib->authenticate("Twitter");
         $message=$this->input->get_post("message");
+        $post=$this->input->get('id');
         $data["message"]=$twitter->api()->post("statuses/update.json?status=$message");
-        $this->load->view("json",$data);
+        if(isset($data["message"]->id_str))
+        {
+        $this->userpost_model->addpostid($data["message"]->id_str,$post);
+		$data['redirect']="site/viewtwitterpost";
+		$this->load->view("redirect",$data);
+        }
+        else
+        {
+			$data['alerterror'] = "Post Error";
+            $data['redirect']="site/viewtwitterpost";
+		    $this->load->view("redirect",$data);
+        }
+//        $this->load->view("json",$data);
     }
     public function postfb()
     {
+        $post=$this->input->get('id');
         $facebook = $this->hybridauthlib->authenticate("Facebook");
         $message=$this->input->get_post("message");
         $image=$this->input->get_post("image");
@@ -128,6 +142,19 @@ class HAuth extends CI_Controller {
             $data["message"]=$facebook->api()->api("v2.2/me/feed", "post", array(
                 "message" => "$message",
             ));
+            if(isset($data["message"]['id']))
+            {
+			$data['alertsuccess']="Posted Successfully.";
+            $this->userpost_model->addpostid($data["message"]['id'],$post);
+            $data['redirect']="site/viewfacebookpost";
+            $this->load->view("redirect",$data);
+            }
+            else
+            {
+                $data['alerterror'] = "Post Error";
+                $data['redirect']="site/viewfacebookpost";
+                $this->load->view("redirect",$data);
+            }
         }
         else
         {
@@ -135,8 +162,24 @@ class HAuth extends CI_Controller {
                 "message" => "$message",
                 "picture"=> "$image"
             ));
+            
+//            print_r($data['message']["id"]);
+            
+            if(isset($data["message"]["id"]))
+            {
+			$data['alertsuccess']="Posted Successfully.";
+            $this->userpost_model->addpostid($data["message"]["id"],$post);
+            $data['redirect']="site/viewfacebookpost";
+            $this->load->view("redirect",$data);
+            }
+            else
+            {
+                $data['alerterror'] = "Post Error";
+                $data['redirect']="site/viewfacebookpost";
+                $this->load->view("redirect",$data);
+            }
         }
-        $this->load->view("json",$data);
+        
     }
 }
 

@@ -68,6 +68,21 @@ class Userpost_model extends CI_Model
 		
 		return 1;
 	}
+	public function addpostid($returnpostid,$post)
+	{
+        $query=$this->db->query("SELECT * FROM `post` WHERE `id`='$post'")->row();
+        $posttype=$query->posttype;
+        $userid=$this->session->userdata('id');
+            $data = array(
+			'user' => $userid,
+			'post' => $post,
+			'returnpostid' => $returnpostid,
+			'posttype' => $posttype
+		      );
+            $userpost=$this->db->insert( 'userpost', $data );
+       
+		return 1;
+	}
 	function deleteuserpost($id)
 	{
 		$query=$this->db->query("DELETE FROM `userpost` WHERE `id`='$id'");
