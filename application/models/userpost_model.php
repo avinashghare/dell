@@ -4,12 +4,18 @@ if ( !defined( 'BASEPATH' ) )
 class Userpost_model extends CI_Model
 {
 	//topic
-	public function create($user,$likes,$share,$post)
+	public function create($user,$likes,$share,$post,$comment,$favourites,$retweet)
 	{
+        $posttype=$this->db->query("SELECT * FROM `post` WHERE `id`='$post'")->row();
+        $posttype=$posttype->posttype;
 		$data  = array(
 			'user' => $user,
 			'likes' => $likes,
 			'post' => $post,
+			'comment' => $comment,
+			'favourites' => $favourites,
+			'retweet' => $retweet,
+			'posttype' => $posttype,
 			'share' => $share
 		);
 		$query=$this->db->insert( 'userpost', $data );
@@ -18,10 +24,11 @@ class Userpost_model extends CI_Model
 	}
 	function viewuserpostbyuser($id)
 	{
-		$query="SELECT `userpost`.`id`,`userpost`.`post`, `userpost`.`likes`, `userpost`.`user`,`userpost`.`share`, `userpost`.`timestamp`,`user`.`name` AS `username`,`post`.`text` AS `posttext`
+		$query="SELECT `userpost`.`id`,`userpost`.`post`, `userpost`.`likes`, `userpost`.`comment`, `userpost`.`favourites`, `userpost`.`retweet`, `userpost`.`returnpostid`, `userpost`.`posttype`,`posttype`.`name` AS `posttypename`, `userpost`.`user`,`userpost`.`share`, `userpost`.`timestamp`,`user`.`name` AS `username`,`post`.`text` AS `posttext`
         FROM `userpost`
         LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
         LEFT OUTER JOIN `post` ON `post`.`id`=`userpost`.`post`
+        LEFT OUTER JOIN `posttype` ON `posttype`.`id`=`userpost`.`posttype`
         WHERE `userpost`.`user`='$id'";
         $result=$this->db->query($query)->result();
         
@@ -42,12 +49,18 @@ class Userpost_model extends CI_Model
 		return $query;
 	}
 	
-	public function edit( $id,$user,$post,$likes,$share)
+	public function edit( $id,$user,$post,$likes,$share,$comment,$favourites,$retweet)
 	{
+        $posttype=$this->db->query("SELECT * FROM `post` WHERE `id`='$post'")->row();
+        $posttype=$posttype->posttype;
 		$data = array(
 			'user' => $user,
 			'likes' => $likes,
 			'post' => $post,
+			'comment' => $comment,
+			'favourites' => $favourites,
+			'retweet' => $retweet,
+			'posttype' => $posttype,
 			'share' => $share
 		);
 		$this->db->where( 'id', $id );

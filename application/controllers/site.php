@@ -753,6 +753,9 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('likes','likes','trim');
 		$this->form_validation->set_rules('share','share','trim');
 		$this->form_validation->set_rules('post','post','trim|required');
+		$this->form_validation->set_rules('comment','comment','trim');
+		$this->form_validation->set_rules('favourites','favourites','trim');
+		$this->form_validation->set_rules('retweet','retweet','trim');
 
 		if($this->form_validation->run() == FALSE)	
 		{
@@ -770,9 +773,12 @@ class Site extends CI_Controller
 			$likes=$this->input->post('likes');
 			$share=$this->input->post('share');
 			$post=$this->input->post('post');
+			$comment=$this->input->post('comment');
+			$favourites=$this->input->post('favourites');
+			$retweet=$this->input->post('retweet');
            
             
-            if($this->userpost_model->create($user,$likes,$share,$post)==0)
+            if($this->userpost_model->create($user,$likes,$share,$post,$comment,$favourites,$retweet)==0)
                $data['alerterror']="New userpost could not be created.";
             else
                $data['alertsuccess']="userpost created Successfully.";
@@ -804,6 +810,9 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('likes','likes','trim');
 		$this->form_validation->set_rules('share','share','trim');
 		$this->form_validation->set_rules('post','post','trim|required');
+		$this->form_validation->set_rules('comment','comment','trim');
+		$this->form_validation->set_rules('favourites','favourites','trim');
+		$this->form_validation->set_rules('retweet','retweet','trim');
         
 		if($this->form_validation->run() == FALSE)	
 		{
@@ -825,8 +834,11 @@ class Site extends CI_Controller
 			$likes=$this->input->post('likes');
 			$share=$this->input->post('share');
 			$post=$this->input->post('post');
+			$comment=$this->input->post('comment');
+			$favourites=$this->input->post('favourites');
+			$retweet=$this->input->post('retweet');
             
-			if($this->userpost_model->edit($id,$user,$post,$likes,$share)==0)
+			if($this->userpost_model->edit($id,$user,$post,$likes,$share,$comment,$favourites,$retweet)==0)
 			$data['alerterror']="userpost Editing was unsuccesful";
 			else
 			$data['alertsuccess']="userpost edited Successfully.";

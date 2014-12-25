@@ -49,6 +49,30 @@
 				  </div>
 				</div>
 				
+				<div class="form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Comments</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="comment" value="<?php echo set_value('comment');?>">
+					
+				  </div>
+				</div>
+				
+				<div class="form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Favourites</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="favourites" value="<?php echo set_value('favourites');?>">
+					
+				  </div>
+				</div>
+				
+				<div class="form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">Retweet</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="retweet" value="<?php echo set_value('retweet');?>">
+					
+				  </div>
+				</div>
+				
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label">&nbsp;</label>
 				  <div class="col-sm-4">

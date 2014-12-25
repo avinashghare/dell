@@ -17,8 +17,13 @@
 					<th>Id</th>
 					<th>User</th>
 					<th>Post Text</th>
+					<th>Post Type</th>
 					<th>Likes</th>
 					<th>Shares</th>
+					<th>Comments</th>
+					<th>Favourites</th>
+					<th>Retweet</th>
+					<th>Postid</th>
 					<th>Timestamp</th>
 					<th> Actions </th>
 				</tr>
@@ -29,8 +34,13 @@
 						<td><?php echo $row->id;?></td>
 						<td><?php echo $row->username;?></td>
 						<td><?php echo $row->posttext;?></td>
+						<td><?php echo $row->posttypename;?></td>
 						<td><?php echo $row->likes;?></td>
 						<td><?php echo $row->share;?></td>
+						<td><?php echo $row->comment;?></td>
+						<td><?php echo $row->favourites;?></td>
+						<td><?php echo $row->retweet;?></td>
+						<td><?php echo $row->returnpostid;?></td>
 						<td><?php echo $row->timestamp;?></td>
 						<td>
 							<a href="<?php echo site_url('site/edituserpost?id=').$row->user.'&userpostid='.$row->id;?>" class="btn btn-primary btn-xs">
