@@ -1,24 +1,23 @@
 var $container;
-var base_url="http://localhost/dell/";
- function postsocial(message,image,viasource) {
+var newbase_url="";
+function postsocial(message,image,viasource) {
             if(viasource=="facebok")
             {
-                $.post(base_url+"index.php/hauth/postfb",{message:message,image:image},function(data){
-                    console.log(data);
-                });
+                window.location.href=newbase_url+"index.php/hauth/postfb?message="+message+"&image="+image;
+                
             }
             else if(viasource=="twitter")
             {
-                $.post(base_url+"index.php/hauth/posttweet",{message:message},function(data){
-                    console.log(data);
-                });
+                window.location.href=newbase_url+"index.php/hauth/posttweet?message="+message+"&image="+image;
+                
             }
         }
+
 function generatemasonry(url, base_url,source) {
     $(document).ready(function () {
         
        
-
+        newbase_url=base_url;
         $container = $('.masonryposts');
 
         $container.masonry({
@@ -51,7 +50,7 @@ function generatemasonry(url, base_url,source) {
             for (var i = 0; i < data.length; i++) {
                 
                 if (data[i].image != "") {
-                    var str = "<div class='item'><div class='image'><img class='img-responsive' src='" + base_url + "uploads/" + data[i].image + "'></div><div class='text'>" + data[i].text + "</div><div class='buttons text-center'><a href='#' class='btn btn-primary'  onclick='postsocial('"+data[i].text+"','','"+source+"')'>Publish</a></div></div>";
+                    var str = "<div class='item'><div class='image'><img class='img-responsive' src='" + base_url + "uploads/" + data[i].image + "'></div><div class='text'>" + data[i].text + "</div><div class='buttons text-center'><a href='#' class='btn btn-primary'  onclick=\"postsocial('"+data[i].text+"','','"+source+"')\">Publish</a></div></div>";
                     $container.append(str);
                     var $myimg=$(".item:last");
                     $(".item:last img").load(function () {
@@ -61,7 +60,7 @@ function generatemasonry(url, base_url,source) {
                 }
                 else
                 {
-                    var str = "<div class='item'><div class='text'>" + data[i].text + "</div><div class='buttons text-center'><a href='#' class='btn btn-primary' onclick='postsocial('"+data[i].text+"','','"+source+"')'>Publish</a></div></div>";
+                    var str = "<div class='item'><div class='text'>" + data[i].text + "</div><div class='buttons text-center'><a href='#' class='btn btn-primary' onclick=\"postsocial('"+data[i].text+"','','"+source+"')\">Publish</a></div></div>";
                     $container.append(str);
                     var $myimg=$(".item:last");
                     $container.masonry('appended', $myimg).fadeIn();
