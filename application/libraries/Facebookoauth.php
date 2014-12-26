@@ -48,7 +48,8 @@ class Facebookoauth {
         {
             $new->comments=0;
         }
-        
+        print_r($new);
+        print_r($id);
         return $new;
     }
 }
