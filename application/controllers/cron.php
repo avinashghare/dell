@@ -3,6 +3,8 @@ class Cron extends CI_Controller
 {
     function checkfacebooklike() 
     {
+        $this->load->library("facebookoauth");
+        $this->load->library('twitteroauth');
     $userpostquery=$this->db->query("SELECT `id`,`returnpostid`,`posttype` FROM `userpost`")->result();
     foreach($userpostquery as $userpost)
     {
@@ -11,41 +13,14 @@ class Cron extends CI_Controller
         $id=$userpost->id;
         if($posttype==1)
         {
-//            echo $returnpostid;
-            $facebook = $this->hybridauthlib->authenticate("Facebook");
-            $likes=$facebook->api()->api("v2.2/'$returnpostid'/likes?summary=1");
-            if(isset($likes["summary"]["total_count"]))
-            {
-            $likes=$likes["summary"]["total_count"];
-            }
-            else
-            {
-            $likes=0;
-            }
+
+            $facebookdet=$this->facebookoauth->get_post($returnpostid);
             
-            $share=$facebook->api()->api("v2.2/'$returnpostid'");
-            if(isset($share["shares"]))
-            {
-            $shares=$share["shares"];
-            }
-            else
-            {
-            $shares=0;
-            }
-            $comment=$facebook->api()->api("v2.2/'$returnpostid'/comments?summary=1");
-            if(isset($comment["summary"]["total_count"]))
-            {
-            $comments=$comment["summary"]["total_count"];
-            }
-            else
-            {
-            $comments=0;
-            }
-            $this->userpost_model->addfacebookcrondata($id,$likes,$shares,$comments);
+            $this->userpost_model->addfacebookcrondata($id,$facebookdet->likes,$facebookdet->shares,$facebookdet->comments);
         }
         else if($posttype==2)
         {
-            $this->load->library('twitteroauth');
+            
 		// Loading twitter configuration.
 		    $this->config->load('twitter');
             $this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('access_token'),  $this->session->userdata('access_token_secret'));
