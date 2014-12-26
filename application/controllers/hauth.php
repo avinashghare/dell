@@ -191,6 +191,12 @@ class HAuth extends CI_Controller {
         print_r($comment["summary"]["total_count"]);
         $this->load->view("json",$data);
     }
+    function checktwitterupdates() {
+        $twitter = $this->hybridauthlib->getAdapter("Twitter");
+        $data["message"]=$twitter->api()->get("statuses/show.json?id=548520769760673792");
+        print_r($data["message"]->retweet_count);print_r($data["message"]->favorite_count);
+        //$this->load->view("json",$data);
+    }
 }
 
 /* End of file hauth.php */
