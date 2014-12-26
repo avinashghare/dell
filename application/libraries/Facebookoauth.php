@@ -19,7 +19,7 @@ class Facebookoauth {
         //echo "https://graph.facebook.com/v2.2/921220457889147_923405451003981/likes?summary=1&$app_access_token";
         $new=new stdClass();
         $new->likes = file_get_contents("https://graph.facebook.com/v2.2/$id/likes?summary=1&$app_access_token");
-        
+        echo $new->likes;
         if(isset(json_decode($new->likes)->summary))
         {
             $new->likes=json_decode($new->likes)->summary->total_count;
