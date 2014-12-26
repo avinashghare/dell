@@ -101,8 +101,10 @@ class User_model extends CI_Model
 	}
 	public function getnormaluserdata( $id )
 	{
-		$query=$this->db->query("SELECT * FROM `user`
-       WHERE `id`='$id'")->row();
+		$query=$this->db->query("SELECT `user`.`id`, `user`.`name`, `user`.`password`, `user`.`email`, `user`.`accesslevel`, `user`.`timestamp`, `user`.`status`,`user`. `contact`, `user`.`sex`, `user`.`dob`,`user`. `college`, `user`.`facebookid`, `user`.`twitterid`, `user`.`instagramid`,`user`. `image`,`college`.`name` AS `collegename` 
+        FROM `user`
+        LEFT OUTER JOIN `college` ON `college`.`id`=`user`.`college`
+       WHERE `user`.`id`='$id'")->row();
 		return $query;
 	}
 	

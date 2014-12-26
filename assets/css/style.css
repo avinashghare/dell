@@ -3492,3 +3492,8 @@ span.customSelect.changed {
 .masonryposts .item .image {
     box-shadow: 0px 3px 10px 1px #ccc;
 }
+.username
+{
+color: blue;
+/*font-size: 40px;*/
+}

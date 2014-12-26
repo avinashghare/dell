@@ -867,7 +867,8 @@ class Site extends CI_Controller
 		$access = array("2");
 		$this->checkaccess($access);
         $id=$this->session->userdata('id');
-        $data['before']=$this->user_model->getnormaluserdata($id);
+        $data['table']=$this->user_model->getnormaluserdata($id);
+        $data['posts']=$this->userpost_model->getpostsofuser($id);
 //        print_r($data);
         $data['page']='normaluserprofile';
 		$data[ 'title' ] = 'Profile';

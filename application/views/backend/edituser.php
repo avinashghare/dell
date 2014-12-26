@@ -53,7 +53,7 @@
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">facebookid</label>
 				  <div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="facebookid" value="<?php echo set_value('facebookid',$before->facebookid);?>">
+					<input type="text" id="normal-field" class="form-control" name="facebookid" value="<?php echo set_value('facebookid',$before->facebookid);?>" readonly>
 				  </div>
 				</div>
 				
@@ -61,7 +61,7 @@
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">twitterid</label>
 				  <div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="twitterid" value="<?php echo set_value('twitterid',$before->twitterid);?>">
+					<input type="text" id="normal-field" class="form-control" name="twitterid" value="<?php echo set_value('twitterid',$before->twitterid);?>" readonly>
 				  </div>
 				</div>
 				
@@ -69,7 +69,7 @@
 				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">instagramid</label>
 				  <div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="instagramid" value="<?php echo set_value('instagramid',$before->instagramid);?>">
+					<input type="text" id="normal-field" class="form-control" name="instagramid" value="<?php echo set_value('instagramid',$before->instagramid);?>" readonly>
 				  </div>
 				</div>
 				

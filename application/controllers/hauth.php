@@ -33,7 +33,10 @@ class HAuth extends CI_Controller {
 					
                     if ($this->uri->segment(3) == 'Facebook')
                     {
-                        $this->db->query("UPDATE `user` SET `facebookid`='$user_profile->identifier' WHERE `id`='$userid'");
+                        $name=$user_profile->firstName.' '.$user_profile->lastName;
+                        $dob=$user_profile->birthYear.'-'.$user_profile->birthMonth.'-'.$user_profile->birthDay;
+                        $this->db->query("UPDATE `user` SET `facebookid`='$user_profile->identifier',`name`='$name',`sex`='$user_profile->gender',`dob`='$dob',`image`='$user_profile->photoURL' WHERE `id`='$userid'");
+                        
                         $data = $this->session->all_userdata();
                         $data['facebook'] = $user_profile->identifier;
                         $this->session->set_userdata($data); 

@@ -125,5 +125,15 @@ class Userpost_model extends CI_Model
 		return 1;
 	}
     
+	public function getpostsofuser( $id )
+	{
+		$query=$this->db->query("SELECT `userpost`.`id`,`userpost`.`post`, `userpost`.`likes`, `userpost`.`comment`, `userpost`.`favourites`, `userpost`.`retweet`, `userpost`.`returnpostid`, `userpost`.`posttype`,`posttype`.`name` AS `posttypename`, `userpost`.`user`,`userpost`.`share`, `userpost`.`timestamp`,`user`.`name` AS `username`,`post`.`text` AS `posttext`
+        FROM `userpost`
+        LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
+        LEFT OUTER JOIN `post` ON `post`.`id`=`userpost`.`post`
+        LEFT OUTER JOIN `posttype` ON `posttype`.`id`=`userpost`.`posttype`
+        WHERE `userpost`.`user`='$id'")->result();
+		return $query;
+	}
 }
 ?>
