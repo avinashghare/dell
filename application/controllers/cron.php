@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Cron extends CI_Controller 
 {
-    function checkfacebooklike() 
+    function socialupdate() 
     {
         $this->load->library("facebookoauth");
         $this->load->library('twitteroauth');
