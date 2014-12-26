@@ -181,6 +181,16 @@ class HAuth extends CI_Controller {
         }
         
     }
+    function checkfacebooklike() {
+        $facebook = $this->hybridauthlib->authenticate("Facebook");
+        $likes=$facebook->api()->api("v2.2/921220457889147_923034417707751/likes?summary=1");
+        print_r($likes["summary"]["total_count"]);
+        $share=$facebook->api()->api("v2.2/921220457889147_923034417707751");
+        print_r($share["shares"]);
+        $comment=$facebook->api()->api("v2.2/921220457889147_923034417707751/comments?summary=1");
+        print_r($comment["summary"]["total_count"]);
+        $this->load->view("json",$data);
+    }
 }
 
 /* End of file hauth.php */
