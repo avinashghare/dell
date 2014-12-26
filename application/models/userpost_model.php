@@ -101,6 +101,29 @@ class Userpost_model extends CI_Model
 		return $return;
 	}
     
+	public function addfacebookcrondata($id,$likes,$shares,$comments)
+	{
+		$data = array(
+			'likes' => $likes,
+			'comment' => $comments,
+			'share' => $shares
+		);
+		$this->db->where( 'id', $id );
+		$query=$this->db->update( 'userpost', $data );
+		
+		return 1;
+	}
+	public function addtwittercrondata($id,$retweet,$favourites)
+	{
+		$data = array(
+			'favourites' => $favourites,
+			'retweet' => $retweet
+		);
+		$this->db->where( 'id', $id );
+		$query=$this->db->update( 'userpost', $data );
+		
+		return 1;
+	}
     
 }
 ?>
