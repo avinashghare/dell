@@ -19,7 +19,15 @@ class Facebookoauth {
         //echo "https://graph.facebook.com/v2.2/921220457889147_923405451003981/likes?summary=1&$app_access_token";
         $new=new stdClass();
         $new->likes = file_get_contents("https://graph.facebook.com/v2.2/$id/likes?summary=1&$app_access_token");
-        $new->likes=json_decode($new->likes);
+        echo $new->likes;
+        if(isset(json_decode($new->likes)->summary))
+        {
+            $new->likes=json_decode($new->likes)->summary->total_count;
+        }
+        else
+        {
+            $new->likes=0;
+        }
        
         $new->shares = file_get_contents("https://graph.facebook.com/v2.2/$id/sharedposts?summary=1&$app_access_token");
         if(isset(json_decode($new->shares)->summary))
@@ -32,8 +40,16 @@ class Facebookoauth {
         }
         
         $new->comments = file_get_contents("https://graph.facebook.com/v2.2/$id/comments?summary=1&$app_access_token");
-        $new->comments=json_decode($new->comments)->summary->total_count;
-        //$new=json_decode($new);
+        if(isset(json_decode($new->comments)->summary))
+        {
+            $new->comments=json_decode($new->comments)->summary->total_count;
+        }
+        else
+        {
+            $new->comments=0;
+        }
+        print_r($new);
+        print_r($id);
         return $new;
     }
 }
