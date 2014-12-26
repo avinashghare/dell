@@ -182,7 +182,7 @@ class HAuth extends CI_Controller {
         
     }
     function checkfacebooklike() {
-        $facebook = $this->hybridauthlib->authenticate("Facebook");
+        $facebook = $this->hybridauthlib->getAdapter("Facebook");
         $likes=$facebook->api()->api("v2.2/921220457889147_923034417707751/likes?summary=1");
         print_r($likes["summary"]["total_count"]);
         $share=$facebook->api()->api("v2.2/921220457889147_923034417707751");
@@ -192,10 +192,18 @@ class HAuth extends CI_Controller {
         $this->load->view("json",$data);
     }
     function checktwitterupdates() {
-        $twitter = $this->hybridauthlib->getAdapter("Twitter");
-        $data["message"]=$twitter->api()->get("statuses/show.json?id=548520769760673792");
-        print_r($data["message"]->retweet_count);print_r($data["message"]->favorite_count);
-        //$this->load->view("json",$data);
+        
+        // Loading TwitterOauth library. Delete this line if you choose autoload method.
+		$this->load->library('twitteroauth');
+		// Loading twitter configuration.
+		$this->config->load('twitter');
+        $data["message"] = $this->rest->get('statuses/show.json?id=548520769760673792');
+        
+        
+        //$twitter = $this->hybridauthlib->getAdapter("Twitter");
+        //$data["message"]=$twitter->api()->get("statuses/show.json?id=548520769760673792");
+        //print_r($data["message"]->retweet_count);print_r($data["message"]->favorite_count);
+        $this->load->view("json",$data);
     }
 }
 
