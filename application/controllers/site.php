@@ -966,7 +966,7 @@ class Site extends CI_Controller
             $orderorder="ASC";
         }
        
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `post` LEFT OUTER JOIN `posttype` ON `posttype`.`id`=`post`.`posttype` LEFT OUTER JOIN `userpost` ON `userpost`.`post`=`post`.`id`" ,"WHERE `post`.`posttype`=1");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `post` LEFT OUTER JOIN `posttype` ON `posttype`.`id`=`post`.`posttype` LEFT OUTER JOIN `userpost` ON `userpost`.`post`=`post`.`id`" ,"WHERE `post`.`posttype`=1","GROUP BY `post`.`id`");
         
 		$this->load->view("json",$data);
         
@@ -1051,7 +1051,7 @@ class Site extends CI_Controller
             $orderorder="ASC";
         }
        
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `post` LEFT OUTER JOIN `posttype` ON `posttype`.`id`=`post`.`posttype`","WHERE `post`.`posttype`=2");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `post` LEFT OUTER JOIN `posttype` ON `posttype`.`id`=`post`.`posttype`","WHERE `post`.`posttype`=2","GROUP BY `post`.`id`");
         
 		$this->load->view("json",$data);
 	} 
