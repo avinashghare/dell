@@ -1,3 +1,3 @@
 <?php 
-file_get_contents("http://www.wohlig.co.in/dell/index.php/cron/socialupdate"); 
+echo file_get_contents("http://wohlig.co.in/dell/index.php/cron/socialupdate"); 
 ?>
