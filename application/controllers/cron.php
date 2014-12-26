@@ -43,10 +43,13 @@ class Cron extends CI_Controller
             }
             $this->userpost_model->addfacebookcrondata($id,$likes,$shares,$comments);
         }
-        else
+        else if($posttype==2)
         {
-            $twitter = $this->hybridauthlib->getAdapter("Twitter");
-            $data["message"]=$twitter->api()->get("statuses/show.json?id=548520769760673792");
+            $this->load->library('twitteroauth');
+		// Loading twitter configuration.
+		    $this->config->load('twitter');
+            $this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('access_token'),  $this->session->userdata('access_token_secret'));
+            $data["message"] = $this->twitteroauth->get('statuses/show.json?id='.$returnpostid);
             if(isset($data["message"]->retweet_count))
             {
                 $retweet=$data["message"]->retweet_count;
