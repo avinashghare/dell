@@ -28,7 +28,13 @@ class Site extends CI_Controller
             }
             else
             {
-                 redirect('/site/index/', 'refresh');
+                if($this->uri->segment(2)=="index")
+                {
+                }
+                else
+                {
+                    redirect('/site/index/', 'refresh');
+                }
             }
         }
 	}
