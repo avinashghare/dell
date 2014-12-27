@@ -511,5 +511,20 @@ LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
             return 1;
 //        }
 	}
+    public function assignrank()
+    {
+        $query=$this->db->query("
+SELECT `id`,`name`,`email`,`score`,`facebook`,`twitter`, 
+CASE `score`
+    WHEN @prev_value THEN @rank_count
+    WHEN @prev_value:=score THEN @rank_count := @rank_count + 1
+END as `rank` 
+FROM (SELECT  `user`.`id`  AS `id` ,  `user`.`name`  AS `name` ,  `user`.`email`  AS `email` ,  IFNULL(SUM(`userpost`.`share`+`userpost`.`likes`+`userpost`.`comment`+`userpost`.`retweet`+`userpost`.`favourites`),0)  AS `score` ,  IFNULL(SUM(`userpost`.`share`+`userpost`.`likes`+`userpost`.`comment`),0)  AS `facebook` ,  IFNULL(SUM(`userpost`.`retweet`+`userpost`.`favourites`),0)  AS `twitter` ,  `college`.`name`  AS `college`  FROM `user` LEFT OUTER JOIN `userpost` ON `user`.`id`=`userpost`.`user` LEFT OUTER JOIN `college` ON `college`.`id`=`user`.`college`   WHERE `user`.`accesslevel`=2 AND (  1 )  GROUP BY `user`.`id`    ORDER BY  `score` DESC ) as `allusers`,(SELECT @prev_value := NULL,@rank_count := 0) as `r` ")->result();
+        foreach($query as $row)
+        {
+            $this->db->query("UPDATE `user` SET `rank`='$query->rank' WHERE `id`='$id'");
+        }
+        
+    }
 }
 ?>

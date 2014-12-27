@@ -44,6 +44,9 @@ class Cron extends CI_Controller
             $this->userpost_model->addtwittercrondata($id,$retweet,$favourites);
         }
     }
+        
+        $this->user_model->assignranks();
+        
 	
 	}
     
