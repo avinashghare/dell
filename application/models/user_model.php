@@ -129,7 +129,7 @@ LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
 	
 	public function gettotalcompassadors()
 	{
-		$query=$this->db->query("SELECT count(`id`) AS `totalcompassadore` FROM `user` WHERE `accesslevel`='2' ")->row();
+		$query=$this->db->query("SELECT count(`id`) AS `totalcompassadore` FROM `user` WHERE `accesslevel`='2'  ")->row();
 		return $query->totalcompassadore;
 	}
 	
