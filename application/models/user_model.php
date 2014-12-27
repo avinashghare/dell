@@ -511,7 +511,7 @@ LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
             return 1;
 //        }
 	}
-    public function assignrank()
+    public function assignranks()
     {
         $query=$this->db->query("
 SELECT `id`,`name`,`email`,`score`,`facebook`,`twitter`, 
