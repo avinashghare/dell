@@ -135,5 +135,20 @@ class Userpost_model extends CI_Model
         WHERE `userpost`.`user`='$id'")->result();
 		return $query;
 	}
+    public function getadmindash( )
+	{
+		$query=$this->db->query("SELECT IFNULL(SUM(`userpost`.`share`+`userpost`.`likes`+`userpost`.`comment`+`userpost`.`retweet`+`userpost`.`favourites`),0) as `score`, `user`.`name`,`user`.`id`,`user`.`email`,IFNULL(SUM(`userpost`.`share`+`userpost`.`likes`+`userpost`.`comment`),0) as `facebook`,IFNULL(SUM(`userpost`.`retweet`+`userpost`.`favourites`),0) as `twitter`,IFNULL(SUM(`userpost`.`retweet`),0) as `totalretweet`,IFNULL(SUM(`userpost`.`favourites`),0) AS `totalfavourites`,IFNULL(SUM(`userpost`.`share`),0) AS `totalshare`,IFNULL(SUM(`userpost`.`likes` ),0) AS `totallikes`,IFNULL(SUM(`userpost`.`comment`),0) AS `totalcomment` FROM `user` LEFT OUTER JOIN `userpost` ON `user`.`id`=`userpost`.`user`")->row();
+		return $query;
+	}
+    public function getstudentdash( )
+	{
+        $userid=$this->session->userdata("id");
+		$query=$this->db->query("SELECT IFNULL(SUM(`userpost`.`share`+`userpost`.`likes`+`userpost`.`comment`+`userpost`.`retweet`+`userpost`.`favourites`),0) as `score`, `user`.`name`,`user`.`id`,`user`.`email`,IFNULL(SUM(`userpost`.`share`+`userpost`.`likes`+`userpost`.`comment`),0) as `facebook`,IFNULL(SUM(`userpost`.`retweet`+`userpost`.`favourites`),0) as `twitter`,IFNULL(SUM(`userpost`.`retweet`),0) as `totalretweet`,IFNULL(SUM(`userpost`.`favourites`),0) AS `totalfavourites`,IFNULL(SUM(`userpost`.`share`),0) AS `totalshare`,IFNULL(SUM(`userpost`.`likes` ),0) AS `totallikes`,IFNULL(SUM(`userpost`.`comment`),0) AS `totalcomment`,@rank:=@rank+1 as `rank` FROM `user` LEFT OUTER JOIN `userpost` ON `user`.`id`=`userpost`.`user`,(SELECT @rank:=0) as `r` WHERE `user`.`id`='$userid'")->row();
+        $totalcountpost=$this->db->query("SELECT count(`id`) as `count1` FROM `post`")->row();
+        $postdonebyuser=$this->db->query("SELECT COUNT(*) as `count2` FROM (SELECT DISTINCT `post` FROM `userpost` WHERE `userpost`.`user`='$userid') as `tab1`")->row();
+        
+        $query->remaining=floatval($totalcountpost->count1)-floatval($postdonebyuser->count2);
+		return $query;
+	}
 }
 ?>

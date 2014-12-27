@@ -1,18 +1,90 @@
-<?php 
-if($facebook)
-{    ?>
-<a href="<?php echo site_url('hauth/login/Facebook');?>" class="btn btn-primary facebooklogin">Facebook Login</a>
-<?php } ?>
+<div class="row state-overview"  >
+    <div class="col-lg-3 col-sm-3">
+        <section class="panel">
+            <div class="symbol terques">
+                <i class="icon-user"></i>
+            </div>
+            <div class="value">
+               <p>Total No of Compassadors </p>
+                <h1><?php  echo ($totalcompassadors); ?></h1>
+                
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-3">
+        <section class="panel">
+            <div class="symbol terques">
+                <i class="icon-user"></i>
+            </div>
+            <div class="value">
+               <p>Action Performed </p>
+                <h1><?php $admindash->score; ?></h1>
+                
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-3">
+        <section class="panel">
+            <div class="symbol terques">
+                <i class="icon-user"></i>
+            </div>
+            <div class="value">
+               <p>Facebook</p>
+                Likes: <?php echo $admindash->totallikes; ?><br>
+                Share: <?php echo $admindash->totalshare; ?><br>
+                Comments: <?php echo $admindash->totalcomment; ?><br>
+                
+            </div>
+        </section>
+    </div>
+    <div class="col-lg-3 col-sm-3">
+        <section class="panel">
+            <div class="symbol terques">
+                <i class="icon-user"></i>
+            </div>
+            <div class="value">
+               <p>Twitter</p>
+                Favourites: <?php echo $admindash->totalfavourites; ?><br>
+                Retweets: <?php echo $admindash->totalretweet; ?><br>
+                
+            </div>
+        </section>
+    </div>
+</div>
 
-<?php 
-if($twitter)
-{    ?>
-<a href="<?php echo site_url('hauth/login/Twitter');?>" class="btn btn-primary twitterlogin">Twitter Login</a>
-<?php } ?>
-
-<a href="<?php echo site_url('hauth/posttweet');?>" class="btn btn-success">Tweet "Testing"</a>
-<a href="<?php echo site_url('hauth/postfb');?>" class="btn btn-warning">Share "Testing"</a>
 
 
-
+<div class="row">
+	<div class="col-lg-12">
+		<section class="panel">
+			<div class="drawchintantable">
+                <?php $this->chintantable->createsearch("Compassedors List");?>
+                <table class="table table-striped table-hover" id="" cellpadding="0" cellspacing="0" >
+                <thead>
+                    <tr>
+<!--                        <th data-field="id">Id</th>-->
+                        <th data-field="name">Name</th>
+                        <th data-field="score">score</th>
+                        <th data-field="rank">rank</th>
+                        <th data-field="college">college</th>
+                        <th data-field="facebook">facebook</th>
+                        <th data-field="twitter">twitter</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                </tbody>
+                </table>
+                   <?php $this->chintantable->createpagination();?>
+            </div>
+		</section>
+		<script>
+            function drawtable(resultrow) {
+                
+                return "<tr><td>" + resultrow.name + "</td><td>" + resultrow.score + "</td><td>" + resultrow.rank + "</td><td>" + resultrow.college + "</td><td>" + resultrow.facebook + "</td><td>" + resultrow.twitter + "</td><tr>";
+            }
+            generatejquery('<?php echo $base_url;?>');
+        </script>
+	</div>
+</div>
 

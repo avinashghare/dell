@@ -127,6 +127,12 @@ LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
 		return $query;
 	}
 	
+	public function gettotalcompassadors()
+	{
+		$query=$this->db->query("SELECT count(`id`) AS `totalcompassadore` FROM `user` WHERE `accesslevel`='2' ")->row();
+		return $query->totalcompassadore;
+	}
+	
 	public function beforeedit( $id )
 	{
 		$this->db->where( 'id', $id );

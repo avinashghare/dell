@@ -27,10 +27,11 @@ class Site extends CI_Controller
         if($this->session->userdata("accesslevel")==1)
         {
             $data[ 'page' ] = 'dashboard';
-            $data[ 'title' ] = 'Welcome';
-            $data[ 'facebook' ] = $this->session->userdata("facebook")=="";
-            $data[ 'twitter' ] = $this->session->userdata("twitter")=="";
-            $this->load->view( 'template', $data );	
+            $data['base_url'] = site_url("site/viewleaderboardjson");
+            $data['totalcompassadors'] = $this->user_model->gettotalcompassadors();
+            $data['admindash'] = $this->userpost_model->getadmindash();
+            $data['title']='Admin Dashboard';
+            $this->load->view('template',$data);
         }
         elseif($this->session->userdata("accesslevel")==2)
         {
@@ -40,6 +41,12 @@ class Site extends CI_Controller
             if(!$data['twitter'] && !$data[ 'facebook' ])
             {
                 $data[ 'page' ] = 'normaluserdashboard';
+                
+                $data['base_url'] = site_url("site/viewleaderboardjson");
+//                $data['totalcompassadors'] = $this->user_model->gettotalcompassadors();
+                $data['studentdash'] = $this->userpost_model->getstudentdash();
+                $data['title']='Student Dashboard';
+                
                 $this->load->view( 'template', $data );	
             }
             else
@@ -1071,6 +1078,7 @@ class Site extends CI_Controller
 		$access = array("1","2");
 		$this->checkaccess($access);
         
+//        SELECT IFNULL(SUM(`userpost`.`share`+`userpost`.`likes`+`userpost`.`comment`+`userpost`.`retweet`+`userpost`.`favourites`),0) as `score`, `user`.`name`,`user`.`id`,`user`.`email`,IFNULL(SUM(`userpost`.`share`+`userpost`.`likes`+`userpost`.`comment`),0) as `facebook`,IFNULL(SUM(`userpost`.`retweet`+`userpost`.`favourites`),0) as `twitter` FROM `user` LEFT OUTER JOIN `userpost` ON `user`.`id`=`userpost`.`user` GROUP BY `user`.`id`
         
         $elements=array();
         $elements[0]=new stdClass();
@@ -1093,46 +1101,35 @@ class Site extends CI_Controller
         $elements[2]->alias="email";
         
         $elements[3]=new stdClass();
-        $elements[3]->field="`user`.`contact`";
+        $elements[3]->field="IFNULL(SUM(`userpost`.`share`+`userpost`.`likes`+`userpost`.`comment`+`userpost`.`retweet`+`userpost`.`favourites`),0)";
         $elements[3]->sort="1";
-        $elements[3]->header="Contact";
-        $elements[3]->alias="contact";
+        $elements[3]->header="Score";
+        $elements[3]->alias="score";
         
         $elements[4]=new stdClass();
-        $elements[4]->field="`user`.`timestamp`";
+        $elements[4]->field="IFNULL(SUM(`userpost`.`share`+`userpost`.`likes`+`userpost`.`comment`),0)";
         $elements[4]->sort="1";
-        $elements[4]->header="Timestamp";
-        $elements[4]->alias="timestamp";
+        $elements[4]->header="Facebook";
+        $elements[4]->alias="facebook";
         
         $elements[5]=new stdClass();
-        $elements[5]->field="`user`.`dob`";
+        $elements[5]->field="IFNULL(SUM(`userpost`.`retweet`+`userpost`.`favourites`),0)";
         $elements[5]->sort="1";
-        $elements[5]->header="Dob";
-        $elements[5]->alias="dob";
+        $elements[5]->header="Twitter";
+        $elements[5]->alias="twitter";
        
         $elements[6]=new stdClass();
-        $elements[6]->field="`accesslevel`.`name`";
+        $elements[6]->field="@rank:=@rank+1";
         $elements[6]->sort="1";
-        $elements[6]->header="Accesslevel";
-        $elements[6]->alias="accesslevelname";
+        $elements[6]->header="Rank";
+        $elements[6]->alias="rank";
        
+        
         $elements[7]=new stdClass();
-        $elements[7]->field="`user`.`facebookid`";
+        $elements[7]->field="`college`.`name`";
         $elements[7]->sort="1";
-        $elements[7]->header="Facebookid";
-        $elements[7]->alias="facebookid";
-       
-        $elements[8]=new stdClass();
-        $elements[8]->field="`user`.`twitterid`";
-        $elements[8]->sort="1";
-        $elements[8]->header="twitterid";
-        $elements[8]->alias="twitterid";
-       
-        $elements[9]=new stdClass();
-        $elements[9]->field="`user`.`instagramid`";
-        $elements[9]->sort="1";
-        $elements[9]->header="instagramid";
-        $elements[9]->alias="instagramid";
+        $elements[7]->header="College";
+        $elements[7]->alias="college";
        
         
         $search=$this->input->get_post("search");
@@ -1151,7 +1148,7 @@ class Site extends CI_Controller
             $orderorder="ASC";
         }
        
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `user` LEFT OUTER JOIN `accesslevel` ON `accesslevel`.`id`=`user`.`accesslevel` ");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `user` LEFT OUTER JOIN `userpost` ON `user`.`id`=`userpost`.`user` LEFT OUTER JOIN `college` ON `college`.`id`=`user`.`college` ,(SELECT @rank:=0) as `r` ","WHERE `user`.`accesslevel`=2","GROUP BY `user`.`id`");
         
 		$this->load->view("json",$data);
 	} 
