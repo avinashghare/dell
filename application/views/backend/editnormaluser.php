@@ -84,7 +84,7 @@
 					?>
 				  </div>
 				</div>
-				<div class=" form-group">
+				<div class=" form-group" style="display:none;">
 				  <label class="col-sm-2 control-label">Status</label>
 				  <div class="col-sm-4">
 					<?php
