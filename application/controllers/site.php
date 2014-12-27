@@ -1244,111 +1244,287 @@ class Site extends CI_Controller
 		}
 	}
 	
-    
-    function addtweeterpostid()
+     //suggestion
+    function viewsuggestion()
 	{
 		$access = array("2");
 		$this->checkaccess($access);
-        echo $message;
-//        $postid=$message;
-//        $this->userpost_model->addtweeterpostid();
-//		$data['page']='viewtwitterpost';
-//        $data['base_url'] = site_url("site/viewtwitterpostjson");
-//        
-//		$data['title']='View twitter Post';
-//		$this->load->view('template',$data);
+		$data['page']='viewsuggestion';
+        $data['base_url'] = site_url("site/viewsuggestionjson");
+        
+		$data['title']='View suggestion';
+		$this->load->view('template',$data);
 	} 
-//    function viewtwitterpostjson()
-//	{
-//		$access = array("2");
-//		$this->checkaccess($access);
-//        //SELECT `userpost`.`id`, `userpost`.`user`, `userpost`.`post`, `userpost`.`likes`, `userpost`.`share` ,`post`.`text`,`post`.`posttype`,`post`.`timestamp`,`user`.`name` AS `username`
-//        
-//        $elements=array();
-//        $elements[0]=new stdClass();
-//        $elements[0]->field="`userpost`.`id`";
-//        $elements[0]->sort="1";
-//        $elements[0]->header="ID";
-//        $elements[0]->alias="id";
-//        
-//        
-//        $elements[1]=new stdClass();
-//        $elements[1]->field="`userpost`.`user`";
-//        $elements[1]->sort="1";
-//        $elements[1]->header="User";
-//        $elements[1]->alias="user";
-//        
-//        $elements[2]=new stdClass();
-//        $elements[2]->field="`userpost`.`post`";
-//        $elements[2]->sort="1";
-//        $elements[2]->header="Post";
-//        $elements[2]->alias="post";
-//        
-//        $elements[3]=new stdClass();
-//        $elements[3]->field="`userpost`.`likes`";
-//        $elements[3]->sort="1";
-//        $elements[3]->header="Likes";
-//        $elements[3]->alias="likes";
-//        
-//        
-//        $elements[4]=new stdClass();
-//        $elements[4]->field="`userpost`.`share`";
-//        $elements[4]->sort="1";
-//        $elements[4]->header="Share";
-//        $elements[4]->alias="share";
-//        
-//        $elements[5]=new stdClass();
-//        $elements[5]->field="`post`.`text`";
-//        $elements[5]->sort="1";
-//        $elements[5]->header="Text";
-//        $elements[5]->alias="text";
-//        
-//        $elements[6]=new stdClass();
-//        $elements[6]->field="`post`.`posttype`";
-//        $elements[6]->sort="1";
-//        $elements[6]->header="Posttype";
-//        $elements[6]->alias="posttype";
-//        
-//        $elements[7]=new stdClass();
-//        $elements[7]->field="`post`.`timestamp`";
-//        $elements[7]->sort="1";
-//        $elements[7]->header="Timestamp";
-//        $elements[7]->alias="timestamp";
-//        
-//        $elements[8]=new stdClass();
-//        $elements[8]->field="`user`.`name`";
-//        $elements[8]->sort="1";
-//        $elements[8]->header="Name";
-//        $elements[8]->alias="name";
-//        
-//        $elements[9]=new stdClass();
-//        $elements[9]->field="`post`.`image`";
-//        $elements[9]->sort="1";
-//        $elements[9]->header="Image";
-//        $elements[9]->alias="image";
-//        
-//        
-//        $search=$this->input->get_post("search");
-//        $pageno=$this->input->get_post("pageno");
-//        $orderby=$this->input->get_post("orderby");
-//        $orderorder=$this->input->get_post("orderorder");
-//        $maxrow=$this->input->get_post("maxrow");
-//        if($maxrow=="")
-//        {
-//            $maxrow=20;
-//        }
-//        
-//        if($orderby=="")
-//        {
-//            $orderby="id";
-//            $orderorder="ASC";
-//        }
-//       
-//        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `userpost` LEFT OUTER JOIN `post` ON `post`.`id`=`userpost`.`post` LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`","WHERE `post`.`posttype`=2");
-//        
-//		$this->load->view("json",$data);
-//	} 
+    function viewsuggestionjson()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+        $userid=$this->session->userdata('id');
+        
+        $elements=array();
+        $elements[0]=new stdClass();
+        $elements[0]->field="`suggestion`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`suggestion`.`text`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Text";
+        $elements[1]->alias="text";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`suggestion`.`image`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Image";
+        $elements[2]->alias="image";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`suggestion`.`timestamp`";
+        $elements[3]->sort="1";
+        $elements[3]->header="timestamp";
+        $elements[3]->alias="timestamp";
+        
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+       
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `suggestion`","WHERE `suggestion`.`user`='$userid'");
+        
+		$this->load->view("json",$data);
+	} 
     
+    public function createsuggestion()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+		$data[ 'page' ] = 'createsuggestion';
+//        $data['posttype']=$this->post_model->getposttypedropdown();
+		$data[ 'title' ] = 'Create suggestion';
+		$this->load->view( 'template', $data );	
+	}
+	function createsuggestionsubmit()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('text','text','trim|required');
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+            $data[ 'page' ] = 'createsuggestion';
+            $data[ 'title' ] = 'Create suggestion';
+            $this->load->view( 'template', $data );	
+		}
+		else
+		{
+            $text=$this->input->post('text');
+            $userid=$this->session->userdata('id');
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            
+			if($this->suggestion_model->create($text,$image,$userid)==0)
+			$data['alerterror']="New suggestion could not be created.";
+			else
+			$data['alertsuccess']="suggestion created Successfully.";
+			$data['redirect']="site/viewsuggestion";
+			$this->load->view("redirect",$data);
+		}
+	}
+    
+	function editsuggestion()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+		$data['page']='editsuggestion';
+		$data['title']='Edit suggestion';
+		$data['before']=$this->suggestion_model->beforeedit($this->input->get('id'));
+		$this->load->view('template',$data);
+	}
+	function editsuggestionsubmit()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+		
+		$this->form_validation->set_rules('text','text','trim|required');
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+			$data['page']='editsuggestion';
+            $data['title']='Edit suggestion';
+            $data['before']=$this->suggestion_model->beforeedit($this->input->get('id'));
+            $this->load->view('template',$data);
+		}
+		else
+		{
+            
+            $id=$this->input->get_post('id');
+            $text=$this->input->get_post('text');
+            $userid=$this->session->userdata('id');
+            
+            $config['upload_path'] = './uploads/';
+			$config['allowed_types'] = 'gif|jpg|png|jpeg';
+			$this->load->library('upload', $config);
+			$filename="image";
+			$image="";
+			if (  $this->upload->do_upload($filename))
+			{
+				$uploaddata = $this->upload->data();
+				$image=$uploaddata['file_name'];
+                
+                $config_r['source_image']   = './uploads/' . $uploaddata['file_name'];
+                $config_r['maintain_ratio'] = TRUE;
+                $config_t['create_thumb'] = FALSE;///add this
+                $config_r['width']   = 800;
+                $config_r['height'] = 800;
+                $config_r['quality']    = 100;
+                //end of configs
+
+                $this->load->library('image_lib', $config_r); 
+                $this->image_lib->initialize($config_r);
+                if(!$this->image_lib->resize())
+                {
+                    echo "Failed." . $this->image_lib->display_errors();
+                }  
+                else
+                {
+                    $image=$this->image_lib->dest_image;
+                }
+                
+			}
+            
+            if($image=="")
+            {
+                $image=$this->suggestion_model->getsuggestionimagebyid($id);
+                $image=$image->image;
+            }
+            
+			if($this->suggestion_model->edit($id,$text,$image,$userid)==0)
+			$data['alerterror']="suggestion Editing was unsuccesful";
+			else
+			$data['alertsuccess']="suggestion edited Successfully.";
+			
+			$data['redirect']="site/viewsuggestion";
+			//$data['other']="template=$template";
+			$this->load->view("redirect",$data);
+			
+		}
+	}
+	
+	function deletesuggestion()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+		$this->suggestion_model->deletesuggestion($this->input->get('id'));
+		$data['alertsuccess']="suggestion Deleted Successfully";
+		$data['redirect']="site/viewsuggestion";
+		$this->load->view("redirect",$data);
+	}
+    
+    function viewadminsuggestion()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+		$data['page']='viewadminsuggestion';
+        $data['base_url'] = site_url("site/viewadminsuggestionjson");
+        
+		$data['title']='View suggestion';
+		$this->load->view('template',$data);
+	} 
+    function viewadminsuggestionjson()
+	{
+		$access = array("1");
+		$this->checkaccess($access);
+        
+        $elements=array();
+        $elements[0]=new stdClass();
+        $elements[0]->field="`suggestion`.`id`";
+        $elements[0]->sort="1";
+        $elements[0]->header="ID";
+        $elements[0]->alias="id";
+        
+        
+        $elements[1]=new stdClass();
+        $elements[1]->field="`suggestion`.`text`";
+        $elements[1]->sort="1";
+        $elements[1]->header="Text";
+        $elements[1]->alias="text";
+        
+        $elements[2]=new stdClass();
+        $elements[2]->field="`suggestion`.`image`";
+        $elements[2]->sort="1";
+        $elements[2]->header="Image";
+        $elements[2]->alias="image";
+        
+        $elements[3]=new stdClass();
+        $elements[3]->field="`suggestion`.`timestamp`";
+        $elements[3]->sort="1";
+        $elements[3]->header="timestamp";
+        $elements[3]->alias="timestamp";
+        
+        
+        $search=$this->input->get_post("search");
+        $pageno=$this->input->get_post("pageno");
+        $orderby=$this->input->get_post("orderby");
+        $orderorder=$this->input->get_post("orderorder");
+        $maxrow=$this->input->get_post("maxrow");
+        if($maxrow=="")
+        {
+            $maxrow=20;
+        }
+        
+        if($orderby=="")
+        {
+            $orderby="id";
+            $orderorder="ASC";
+        }
+       
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `suggestion`");
+        
+		$this->load->view("json",$data);
+	} 
     
     
 }
