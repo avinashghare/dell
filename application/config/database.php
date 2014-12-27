@@ -112,7 +112,7 @@ if($myserver!="localhost")
 $db['default']['username'] = 'wohligco_dell';
 $db['default']['password'] = 'chintan123';
 $db['default']['database'] = 'wohligco_dell';
-$db['default']['database'] = 'dell';
+
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
