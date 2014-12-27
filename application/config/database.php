@@ -109,9 +109,9 @@ $myserver=$_SERVER['SERVER_NAME'];
 
 if($myserver!="localhost")
 {
-$db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
-$db['default']['password'] = '';
+$db['default']['username'] = 'wohligco_dell';
+$db['default']['password'] = 'chintan123';
+$db['default']['database'] = 'wohligco_dell';
 $db['default']['database'] = 'dell';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
