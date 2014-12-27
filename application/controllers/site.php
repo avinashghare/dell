@@ -1137,7 +1137,7 @@ class Site extends CI_Controller
         $elements[5]->alias="twitter";
        
         $elements[6]=new stdClass();
-        $elements[6]->field="`rank`";
+        $elements[6]->field="`user`.`rank`";
         $elements[6]->sort="1";
         $elements[6]->header="Rank";
         $elements[6]->alias="rank";
