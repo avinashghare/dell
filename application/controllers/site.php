@@ -19,6 +19,18 @@ class Site extends CI_Controller
 		$accesslevel=$this->session->userdata('accesslevel');
 		if(!in_array($accesslevel,$access))
 			redirect( base_url() . 'index.php/site?alerterror=You do not have access to this page. ', 'refresh' );
+        if($accesslevel==2)
+        {
+            $data[ 'facebook' ] = $this->session->userdata("facebook")=="";
+            $data[ 'twitter' ] = $this->session->userdata("twitter")=="";
+            if(!$data['twitter'] && !$data[ 'facebook' ])
+            {
+            }
+            else
+            {
+                 redirect('/site/index/', 'refresh');
+            }
+        }
 	}
 	public function index()
 	{
