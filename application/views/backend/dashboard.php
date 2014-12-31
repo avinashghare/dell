@@ -2,7 +2,7 @@
     <div class="col-lg-3 col-sm-3">
         <section class="panel">
             <div class="symbol terques">
-                <i class="icon-user"></i>
+                <i class="fa fa-user"></i>
             </div>
             <div class="value">
                <p>Total No of Compassadors </p>
@@ -14,7 +14,7 @@
     <div class="col-lg-3 col-sm-3">
         <section class="panel">
             <div class="symbol terques">
-                <i class="icon-user"></i>
+                <i class="fa fa-check-circle"></i>
             </div>
             <div class="value">
                <p>Action Performed </p>
@@ -26,7 +26,7 @@
     <div class="col-lg-3 col-sm-3">
         <section class="panel">
             <div class="symbol terques">
-                <i class="icon-user"></i>
+                <i class="fa fa-facebook-square"></i>
             </div>
             <div class="value">
                <p>Facebook</p>
@@ -40,7 +40,7 @@
     <div class="col-lg-3 col-sm-3">
         <section class="panel">
             <div class="symbol terques">
-                <i class="icon-user"></i>
+                <i class="fa fa-twitter"></i>
             </div>
             <div class="value">
                <p>Twitter</p>

@@ -1,8 +1,8 @@
-<div class="row state-overview"  >
-    <div class="col-lg-3 col-sm-3">
+<div class="row state-overview fit5"  >
+    <div class="col-lg-2 col-sm-2">
         <section class="panel">
             <div class="symbol terques">
-                <i class="icon-user"></i>
+                <i class="fa fa-user"></i>
             </div>
             <div class="value">
                <p>Rank </p>
@@ -11,10 +11,10 @@
             </div>
         </section>
     </div>
-    <div class="col-lg-3 col-sm-3">
+    <div class="col-lg-2 col-sm-2">
         <section class="panel">
             <div class="symbol terques">
-                <i class="icon-user"></i>
+                <i class="fa fa-check-circle"></i>
             </div>
             <div class="value">
                <p>Action Done </p>
@@ -24,10 +24,10 @@
         </section>
     </div>
    
-    <div class="col-lg-3 col-sm-3">
+    <div class="col-lg-2 col-sm-2">
         <section class="panel">
             <div class="symbol terques">
-                <i class="icon-user"></i>
+                <i class="fa fa-exclamation-circle"></i>
             </div>
             <div class="value">
                <p>Action Remaining </p>
@@ -37,13 +37,11 @@
         </section>
     </div>
    
-</div>
-<div class="row state-overview"  >
     
-    <div class="col-lg-3 col-sm-3">
+    <div class="col-lg-2 col-sm-2">
         <section class="panel">
             <div class="symbol terques">
-                <i class="icon-user"></i>
+                <i class="fa fa-facebook-square"></i>
             </div>
             <div class="value">
                <p>Facebook</p>
@@ -54,10 +52,10 @@
             </div>
         </section>
     </div>
-    <div class="col-lg-3 col-sm-3">
+    <div class="col-lg-2 col-sm-2">
         <section class="panel">
             <div class="symbol terques">
-                <i class="icon-user"></i>
+                <i class="fa fa-twitter"></i>
             </div>
             <div class="value">
                <p>Twitter</p>
@@ -104,4 +102,3 @@
         </script>
 	</div>
 </div>
-

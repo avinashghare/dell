@@ -526,5 +526,43 @@ FROM (SELECT  `user`.`id`  AS `id` ,  `user`.`name`  AS `name` ,  `user`.`email`
         }
         
     }
+    
+    
+	public function createuserbycsv($file)
+	{
+//        print_r($file);
+        foreach ($file as $row)
+        {
+        $college=$row['college'];
+        $collegequery=$this->db->query("SELECT * FROM `college` where `name` LIKE '$college'")->row();
+        if(empty($collegequery))
+        {
+            $this->db->query("INSERT INTO `college`(`name`) VALUES ('$college')");
+            $collegeid=$this->db->insert_id();
+        }
+        else
+        {
+            $collegeid=$collegequery->id;
+        }
+         
+            $name=$row['name'];
+            $password=md5($row['password']);
+            $data  = array(
+                'name' => $row['name'],
+                'email' => $row['email'],
+                'password' => $password,
+                'contact' => $row['contact'],
+                'college' => $collegeid,
+                'accesslevel' => 2,
+                'status' => 2
+            );
+
+            $query=$this->db->insert( 'user', $data );
+        }
+		if(!$query)
+			return  0;
+		else
+			return  1;
+	}
 }
 ?>

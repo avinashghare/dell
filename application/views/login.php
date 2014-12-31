@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="Mosaddek">
-    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <link rel="shortcut icon" href="img/favicon.html">
+    <meta name="keyword" content="Dell, Campassador">
+    <link rel="shortcut icon" href="img/favicon.png">
 
     <title>DELL | Login</title>
 
@@ -36,15 +36,21 @@
             <?php echo $alerterror;	?>
             </div>
             <?php } ?>
-        <h2 class="form-signin-heading">sign in now</h2>
+            <div class="login-logo">
+            <img src="<?php echo base_url('assets/images/dell_login.png'); ?>" alt="Dell" />
+            <img src="<?php echo base_url('assets/images/campassador.png'); ?>" alt="Campassador" />
+            </div>
+        <h2 class="form-signin-heading">Campassadors</h2>
+        <h2 class="form-signin-heading">Dell</h2>
+
         <div class="login-wrap">
-            <input type="text" class="form-control" placeholder="User ID" autofocus name="username">
+            <input type="text" class="form-control" placeholder="Username" autofocus name="username">
             <input type="password" class="form-control" placeholder="Password" name="password">
             <label class="checkbox">
-                <input type="checkbox" value="remember-me"> Remember me
+                <!--<input type="checkbox" value="remember-me"> Remember me
                 <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
-            </label>
-            <button class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
+            </label>-->
+            <button class="btn btn-lg btn-login btn-self" type="submit">Login</button>
             <!--<p>or you can sign in via social network</p>
             <div class="login-social-link">
                 <a href="index.html" class="facebook">

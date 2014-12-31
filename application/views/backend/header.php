@@ -7,6 +7,7 @@
     <link href="<?php echo base_url('assets/css/bootstrap-reset.css'); ?>" rel="stylesheet">
     <!--external css-->
     <link href="<?php echo base_url('assets/assets/font-awesome/css/font-awesome.css'); ?>" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style-responsive.css'); ?>" rel="stylesheet" />
@@ -99,7 +100,7 @@ $(document).ready(function(){
                 <div data-original-title="Toggle Navigation" data-placement="right" class="icon-reorder tooltips"></div>
             </div>
             <!--logo start-->
-            <a href="#" class="logo"> <span>DELL</span></a>
+            <a href="<?php echo base_url(); ?>" class="logo"> <span><img src="<?php echo base_url('assets/images/head_logo.png'); ?>" alt="Dell" /></span></a>
             <!--logo end-->
             <div class="top-nav ">
                 <!--search & user info start-->
@@ -223,7 +224,7 @@ $(document).ready(function(){
               <ul class="sidebar-menu">
                   <li class="active">
                       <a class="" href="<?php echo site_url('site/index'); ?>">
-                          <i class="icon-dashboard"></i>
+                          <i class="fa fa-home"></i>
                           <span>Dashboard</span>
                       </a>
                   </li>
@@ -278,6 +279,9 @@ $(document).ready(function(){
                           <span class="arrow"></span>
                       </a>
                   </li>-->
+
+<img src="<?php echo base_url('assets/images/campassador.png'); ?>" alt="Dell" class="dell-campa" />
+
               </ul>
               <!-- sidebar menu end-->
           </div>

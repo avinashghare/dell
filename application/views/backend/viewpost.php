@@ -1,18 +1,12 @@
-<div class=" row" style="padding:1% 0;">
-	<div class="col-md-12">
-	
-		<a class="btn btn-primary pull-right"  href="<?php echo site_url('site/createpost'); ?>"><i class="icon-plus"></i>Create </a> &nbsp; 
-	</div>
-	
-</div>
+
 <div class="row">
 	<div class="col-lg-12">
 		<section class="panel">
 			<header class="panel-heading">
-                Post Details
+                Post Details<a class="btn btn-round pull-right mdm"  href="<?php echo site_url('site/createpost'); ?>"><i class="icon-plus"></i></a>
             </header>
 			<div class="drawchintantable">
-                <?php $this->chintantable->createsearch("post List");?>
+                <?php $this->chintantable->createsearch("Post List");?>
                 <table class="table table-striped table-hover" id="" cellpadding="0" cellspacing="0" >
                 <thead>
                     <tr>
@@ -32,7 +26,7 @@
 		<script>
             function drawtable(resultrow) {
                 
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.text + "</td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editpost?id=');?>"+resultrow.id +"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletepost?id='); ?>"+resultrow.id +"'><i class='icon-trash '></i></a></td><tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.text + "</td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-round btn-xs' href='<?php echo site_url('site/editpost?id=');?>"+resultrow.id +"'><i class='icon-pencil'></i></a><a class='btn btn-round btn-xs' href='<?php echo site_url('site/deletepost?id='); ?>"+resultrow.id +"'><i class='icon-trash '></i></a></td><tr>";
             }
             generatejquery('<?php echo $base_url;?>');
         </script>
