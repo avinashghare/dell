@@ -77,7 +77,7 @@
 				
 				
 				<div class=" form-group">
-				  <label class="col-sm-2 control-label">sex</label>
+				  <label class="col-sm-2 control-label">Gender</label>
 				  <div class="col-sm-4">
 					<?php
 						
