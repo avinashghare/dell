@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="Mosaddek">
-    <meta name="keyword" content="Dell, Campassador">
+    <meta name="author" content="Campassador ">
+    <meta name="keyword" content="Dell, Campassador ">
     <link rel="shortcut icon" href="img/favicon.png">
 
     <title>DELL | Login</title>
@@ -40,7 +40,7 @@
             <img src="<?php echo base_url('assets/images/dell_login.png'); ?>" alt="Dell" />
             <img src="<?php echo base_url('assets/images/campassador.png'); ?>" alt="Campassador" />
             </div>
-        <h2 class="form-signin-heading">Campassadors</h2>
+        <h2 class="form-signin-heading">Campassador</h2>
         <h2 class="form-signin-heading">Dell</h2>
 
         <div class="login-wrap">

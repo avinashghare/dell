@@ -5,7 +5,7 @@
                 <i class="fa fa-user"></i>
             </div>
             <div class="value">
-               <p>Total No of Compassadors </p>
+               <p>Total No of Campassadors </p>
                 <h1><?php  echo ($totalcompassadors); ?></h1>
                 
             </div>
