@@ -1,12 +1,11 @@
-
 <div class="row">
 	<div class="col-lg-12">
 		<section class="panel">
 			<header class="panel-heading">
-                Compassedors Details
+                Campassadors Details
             </header>
 			<div class="drawchintantable">
-                <?php $this->chintantable->createsearch("Compassedors List");?>
+                <?php $this->chintantable->createsearch("Campassadors List");?>
                 <table class="table table-striped table-hover" id="" cellpadding="0" cellspacing="0" >
                 <thead>
                     <tr>

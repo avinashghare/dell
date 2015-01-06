@@ -252,7 +252,6 @@ ul.sidebar-menu li a:focus {
 ul.sidebar-menu li a i {
     font-size: 15px;
     padding-right: 6px;
-    width: 25px;
 }
 ul.sidebar-menu li a:hover i,
 ul.sidebar-menu li a:focus i {
