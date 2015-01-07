@@ -481,11 +481,11 @@ ul.top-menu > li > a:focus {
     margin-top: 7px;
 }
 .top-nav ul.top-menu > li .dropdown-menu.logout {
-    width: 268px !important;
+    width: 150px !important;
 }
 .top-nav li.dropdown .dropdown-menu {
     float: right;
-    right: 0;
+    right: 0px;
     left: auto;
 }
 .dropdown-menu.extended.logout > li {
@@ -497,14 +497,14 @@ ul.top-menu > li > a:focus {
     float: left;
     text-align: center;
     width: 100%;
-    background: #74CBC9;
-    border-radius: 0 0 3px 3px;
+    background: #40A8D6;
+    border-radius: 0px;
 }
 .dropdown-menu.extended.logout > li:last-child > a,
 .dropdown-menu.extended.logout > li:last-child > a:hover {
     color: white;
     border-bottom: none !important;
-    text-transform: uppercase;
+    text-transform: none;
 }
 .dropdown-menu.extended.logout > li:last-child > a:hover > i {
     color: #fff;
@@ -675,6 +675,7 @@ select.form-control {
     margin: 0;
     padding: 0;
     color: #40A8D6;
+    font-weight: 700;
 }
 .state-overview .value h1 {
     font-weight: 500;
@@ -3476,7 +3477,7 @@ span.customSelect.changed {
     /* box-shadow: 0px 3px 10px 1px #ccc; */
 }
 .username {
-color: #40A8D6;
+    color: #40A8D6;
 }
 .login-logo img {
     width: 49.5%;
@@ -3606,10 +3607,11 @@ select {
     border-color: rgb(64, 168, 214);
     color: #40A8D6;
 }
-.pagination>li>a, .pagination>li>span {
-background-color: transparent;
-border: 1px solid #40A8D6;
-color: #40A8D6;
+.pagination>li>a,
+.pagination>li>span {
+    background-color: transparent;
+    border: 1px solid #40A8D6;
+    color: #40A8D6;
 }
 .pagination>.active>a,
 .pagination>.active>span,
@@ -3703,6 +3705,13 @@ fieldset[disabled] .form-control {
 .fit5 .col-lg-2.col-sm-2 {
     width: 20%
 }
-.state-overview .col-lg-3.col-sm-3+.col-lg-3.col-sm-3, .state-overview .col-lg-2.col-sm-2+.col-lg-2.col-sm-2 {
+.state-overview .col-lg-3.col-sm-3+.col-lg-3.col-sm-3,
+.state-overview .col-lg-2.col-sm-2+.col-lg-2.col-sm-2 {
     border-left: 1px solid #40A8D6;
+}
+.carousel-inner .item {
+    text-align: center;
+}
+.text {
+    margin: 10px 0;
 }
