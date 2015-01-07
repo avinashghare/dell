@@ -52,7 +52,7 @@ function generatemasonry(url, base_url,source) {
 
             for (var i = 0; i < data.length; i++) {
                 var linktext="";
-                if(data[i].link != "")
+                if(data[i].link && data[i].link != "")
                 {
                     linktext="<div>Link: <a href='"+ data[i].link+"' target='_new'>"+ data[i].link+"</a></div>";
                 }
