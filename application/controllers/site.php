@@ -64,6 +64,7 @@ class Site extends CI_Controller
 //                $data['totalcompassadors'] = $this->user_model->gettotalcompassadors();
                 $data['studentdash'] = $this->userpost_model->getstudentdash();
                 $data['title']='Student Dashboard';
+                $data["quickposts"]=$this->post_model->viewquickpost();
                 
                 $this->load->view( 'template', $data );	
             }
@@ -581,6 +582,12 @@ class Site extends CI_Controller
         $elements[5]->header="Platform";
         $elements[5]->alias="posttypename";
         
+        $elements[6]=new stdClass();
+        $elements[6]->field="`post`.`link`";
+        $elements[6]->sort="1";
+        $elements[6]->header="Link";
+        $elements[6]->alias="link";
+        
         
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
@@ -618,6 +625,7 @@ class Site extends CI_Controller
 		$this->checkaccess($access);
 		$this->form_validation->set_rules('text','text','trim|required');
 		$this->form_validation->set_rules('posttype','posttype','trim');
+		$this->form_validation->set_rules('link','link','trim');
 		if($this->form_validation->run() == FALSE)	
 		{
 			$data['alerterror'] = validation_errors();
@@ -630,6 +638,7 @@ class Site extends CI_Controller
 		{
             $text=$this->input->post('text');
             $posttype=$this->input->post('posttype');
+            $link=$this->input->post('link');
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -662,7 +671,7 @@ class Site extends CI_Controller
                 
 			}
             
-			if($this->post_model->create($text,$image,$posttype)==0)
+			if($this->post_model->create($text,$image,$posttype,$link)==0)
 			$data['alerterror']="New post could not be created.";
 			else
 			$data['alertsuccess']="post created Successfully.";
@@ -688,6 +697,7 @@ class Site extends CI_Controller
 		
 		$this->form_validation->set_rules('text','text','trim|required');
 		$this->form_validation->set_rules('posttype','posttype','trim');
+		$this->form_validation->set_rules('link','link','trim');
 		if($this->form_validation->run() == FALSE)	
 		{
 			$data['alerterror'] = validation_errors();
@@ -703,6 +713,7 @@ class Site extends CI_Controller
             $id=$this->input->get_post('id');
             $text=$this->input->get_post('text');
             $posttype=$this->input->get_post('posttype');
+            $link=$this->input->get_post('link');
             
             $config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'gif|jpg|png|jpeg';
@@ -741,7 +752,7 @@ class Site extends CI_Controller
                 $image=$image->image;
             }
             
-			if($this->post_model->edit($id,$text,$image,$posttype)==0)
+			if($this->post_model->edit($id,$text,$image,$posttype,$link)==0)
 			$data['alerterror']="post Editing was unsuccesful";
 			else
 			$data['alertsuccess']="post edited Successfully.";
@@ -983,17 +994,23 @@ class Site extends CI_Controller
         $elements[4]->alias="timestamp";
         
         
-        $elements[4]=new stdClass();
-        $elements[4]->field="`posttype`.`name`";
-        $elements[4]->sort="1";
-        $elements[4]->header="posttypename";
-        $elements[4]->alias="posttypename";
+        $elements[5]=new stdClass();
+        $elements[5]->field="`posttype`.`name`";
+        $elements[5]->sort="1";
+        $elements[5]->header="posttypename";
+        $elements[5]->alias="posttypename";
         
-        $elements[4]=new stdClass();
-        $elements[4]->field="`userpost`.`returnpostid`";
-        $elements[4]->sort="1";
-        $elements[4]->header="returnpostid";
-        $elements[4]->alias="returnpostid";
+        $elements[6]=new stdClass();
+        $elements[6]->field="`userpost`.`returnpostid`";
+        $elements[6]->sort="1";
+        $elements[6]->header="returnpostid";
+        $elements[6]->alias="returnpostid";
+        
+        $elements[7]=new stdClass();
+        $elements[7]->field="`post`.`link`";
+        $elements[7]->sort="1";
+        $elements[7]->header="Link";
+        $elements[7]->alias="link";
         
         
         $search=$this->input->get_post("search");

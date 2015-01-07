@@ -119,14 +119,14 @@ class Chintantable {
     {
         echo '<nav class="chintantablepagination"><ul class="pagination"></ul></nav>';
     }
-    public function createsearch($title="",$description="")
+    public function createsearch($title="",$description="",$firstclass="col-md-9",$secondclass="col-md-3")
     {
         echo '<div class="row">
-                <div class="col-md-9">
+                <div class="'.$firstclass.'">
                     <h4>'.$title.'</h4>
                     <h6 >'.$description.'</h6>
                 </div>
-                <div class="col-md-3">
+                <div class="'.$secondclass.'">
                 <select class="maxrow form-control" style="
     float: left;  width: 76px;
 "><option value="10">10</option><option value="20">20</option><option value="50">50</option><option value="100">100</option></select>

@@ -25,6 +25,14 @@
 					</div>
 				  </div>
 				</div>
+				<div class="form-group onlyfb">
+				  <label class="col-sm-2 control-label" for="normal-field">Link</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="link" value="<?php echo set_value('link');?>">
+					
+				    </div>
+				</div>
+				
 				
 				<div class=" form-group onlyfb">
 				  <label class="col-sm-2 control-label" for="normal-field">Image</label>

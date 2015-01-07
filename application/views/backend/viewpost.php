@@ -14,6 +14,7 @@
                         <th data-field="text">text</th>
                         <th data-field="posttypename">Platform</th>
                         <th data-field="image">Image</th>
+                        <th data-field="link">Link</th>
                         <th data-field="timestamp">Timestamp</th>
                         <th data-field="action"> Actions </th>
                     </tr>
@@ -28,7 +29,7 @@
 		<script>
             function drawtable(resultrow) {
                 
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.text + "</td><td>" + resultrow.posttypename + "</td><td><img src='<?php echo base_url('/uploads/');?>/" + resultrow.image + "' width=100px;></td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-round btn-xs' href='<?php echo site_url('site/editpost?id=');?>"+resultrow.id +"'><i class='icon-pencil'></i></a><a class='btn btn-round btn-xs' href='<?php echo site_url('site/deletepost?id='); ?>"+resultrow.id +"'><i class='icon-trash '></i></a></td><tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.text + "</td><td>" + resultrow.posttypename + "</td><td><img src='<?php echo base_url('/uploads/');?>/" + resultrow.image + "' width=100px;></td><td>" + resultrow.link + "</td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-round btn-xs' href='<?php echo site_url('site/editpost?id=');?>"+resultrow.id +"'><i class='icon-pencil'></i></a><a class='btn btn-round btn-xs' href='<?php echo site_url('site/deletepost?id='); ?>"+resultrow.id +"'><i class='icon-trash '></i></a></td><tr>";
             }
             generatejquery('<?php echo $base_url;?>');
         </script>

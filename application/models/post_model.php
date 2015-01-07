@@ -3,11 +3,12 @@ if ( !defined( 'BASEPATH' ) )
 	exit( 'No direct script access allowed' );
 class Post_model extends CI_Model
 {
-	public function create($text,$image,$posttype)
+	public function create($text,$image,$posttype,$link)
 	{
 		$data  = array(
 			'text' => $text,
 			'posttype' => $posttype,
+			'link' => $link,
 			'image' => $image
 		);
 		$query=$this->db->insert( 'post', $data );
@@ -31,11 +32,12 @@ class Post_model extends CI_Model
 		return $query;
 	}
 	
-	public function edit($id,$text,$image,$posttype)
+	public function edit($id,$text,$image,$posttype,$link)
 	{
 		$data  = array(
 			'text' => $text,
 			'posttype' => $posttype,
+			'link' => $link,
 			'image' => $image
 		);
 		$this->db->where( 'id', $id );
@@ -80,7 +82,7 @@ class Post_model extends CI_Model
     
     public function viewquickpost()
     {
-        $data=$this->db->query("SELECT  `post`.`id`  AS `id` ,  `post`.`text`  AS `text` ,  `post`.`image`  AS `image` ,`posttype`.`name` as `posttypename`,  `post`.`posttype`  AS `posttype` ,  `userpost`.`returnpostid`  AS `returnpostid` FROM `post` LEFT OUTER JOIN `posttype` ON `posttype`.`id`=`post`.`posttype` LEFT OUTER JOIN `userpost` ON `userpost`.`post`=`post`.`id`  GROUP BY `post`.`id`    ORDER BY  `id` ASC,  1  LIMIT 0,10")->result();
+        $data=$this->db->query("SELECT  `post`.`id`  AS `id` ,  `post`.`text`  AS `text` ,  `post`.`image`  AS `image` ,`posttype`.`name` as `posttypename`,  `post`.`posttype`  AS `posttype` ,  `userpost`.`returnpostid`  AS `returnpostid`,  `post`.`link` AS `link` FROM `post` LEFT OUTER JOIN `posttype` ON `posttype`.`id`=`post`.`posttype` LEFT OUTER JOIN `userpost` ON `userpost`.`post`=`post`.`id`  GROUP BY `post`.`id`    ORDER BY  `id` ASC,  1  LIMIT 0,10")->result();
         return $data;
     }
     
