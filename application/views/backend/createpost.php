@@ -16,7 +16,8 @@
 				<div class="form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">Text</label>
 				  <div class="col-sm-4">
-					<input type="text" id="normal-field" class="form-control" name="text" value="<?php echo set_value('text');?>">
+<!--					<input type="text" id="normal-field" class="form-control" name="text" value="<?php echo set_value('text');?>">-->
+					<textarea name="text" class="form-control"><?php echo set_value('text');?></textarea>
 				  </div>
 				</div>
 				

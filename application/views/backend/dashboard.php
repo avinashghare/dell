@@ -18,7 +18,7 @@
             </div>
             <div class="value">
                <p>Action Performed </p>
-                <h1><?php $admindash->score; ?></h1>
+                <h1><?php echo $admindash->score; ?></h1>
                 
             </div>
         </section>
@@ -31,7 +31,7 @@
             <div class="value">
                <p>Facebook</p>
                 Likes: <?php echo $admindash->totallikes; ?><br>
-                Share: <?php echo $admindash->totalshare; ?><br>
+                <?php if($admindash->totalshare>1) {?>Share: <?php echo $admindash->totalshare; ?><br><?php } ?>
                 Comments: <?php echo $admindash->totalcomment; ?><br>
                 
             </div>
@@ -63,12 +63,12 @@
                 <thead>
                     <tr>
 <!--                        <th data-field="id">Id</th>-->
-                        <th data-field="name">Name</th>
-                        <th data-field="score">score</th>
                         <th data-field="rank">rank</th>
+                        <th data-field="name">Name</th>
                         <th data-field="college">college</th>
                         <th data-field="facebook">facebook</th>
                         <th data-field="twitter">twitter</th>
+                        <th data-field="score">score</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,7 +81,7 @@
 		<script>
             function drawtable(resultrow) {
                 
-                return "<tr><td>" + resultrow.name + "</td><td>" + resultrow.score + "</td><td>" + resultrow.rank + "</td><td>" + resultrow.college + "</td><td>" + resultrow.facebook + "</td><td>" + resultrow.twitter + "</td><tr>";
+                return "<tr><td>" + resultrow.rank + "</td><td><a href='<?php echo site_url('site/edituser?id=');?>"+resultrow.id +"'>" + resultrow.name + "</a></td><td>" + resultrow.college + "</td><td>" + resultrow.facebook + "</td><td>" + resultrow.twitter + "</td><td>" + resultrow.score + "</td><tr>";
             }
             generatejquery('<?php echo $base_url;?>');
         </script>
