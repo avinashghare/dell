@@ -77,6 +77,13 @@ class Post_model extends CI_Model
 		
 		return $return;
 	}
+    
+    public function viewquickpost()
+    {
+        $data=$this->db->query("SELECT  `post`.`id`  AS `id` ,  `post`.`text`  AS `text` ,  `post`.`image`  AS `image` ,`posttype`.`name` as `posttypename`,  `post`.`posttype`  AS `posttype` ,  `userpost`.`returnpostid`  AS `returnpostid` FROM `post` LEFT OUTER JOIN `posttype` ON `posttype`.`id`=`post`.`posttype` LEFT OUTER JOIN `userpost` ON `userpost`.`post`=`post`.`id`  GROUP BY `post`.`id`    ORDER BY  `id` ASC,  1  LIMIT 0,10")->result();
+        return $data;
+    }
+    
 }
 	
 ?>
