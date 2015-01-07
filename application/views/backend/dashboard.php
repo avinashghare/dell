@@ -5,7 +5,7 @@
                 <i class="fa fa-user"></i>
             </div>
             <div class="value">
-               <p>Total No of Campassador </p>
+               <p><b>Total No of Campassador</b> </p>
                 <h1><?php  echo ($totalcompassadors); ?></h1>
                 
             </div>
@@ -17,7 +17,7 @@
                 <i class="fa fa-check-circle"></i>
             </div>
             <div class="value">
-               <p>Action Performed </p>
+               <p><b>Action Performed</b> </p>
                 <h1><?php echo $admindash->score; ?></h1>
                 
             </div>
@@ -29,7 +29,7 @@
                 <i class="fa fa-facebook-square"></i>
             </div>
             <div class="value">
-               <p>Facebook</p>
+               <p><b>Facebook</b></p>
                 Likes: <?php echo $admindash->totallikes; ?><br>
                 <?php if($admindash->totalshare>1) {?>Share: <?php echo $admindash->totalshare; ?><br><?php } ?>
                 Comments: <?php echo $admindash->totalcomment; ?><br>
@@ -43,7 +43,7 @@
                 <i class="fa fa-twitter"></i>
             </div>
             <div class="value">
-               <p>Twitter</p>
+               <p><b>Twitter</b></p>
                 Favourites: <?php echo $admindash->totalfavourites; ?><br>
                 Retweets: <?php echo $admindash->totalretweet; ?><br>
                 

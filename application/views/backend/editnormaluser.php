@@ -45,6 +45,13 @@
 				</div>
 				
 				<div class=" form-group">
+				  <label class="col-sm-2 control-label" for="normal-field">City</label>
+				  <div class="col-sm-4">
+					<input type="text" id="normal-field" class="form-control" name="city" value="<?php echo set_value('city',$before->city);?>">
+				  </div>
+				</div>
+				
+				<div class=" form-group">
 				  <label class="col-sm-2 control-label" for="normal-field">DOB</label>
 				  <div class="col-sm-4">
 					<input type="date" id="d" class="form-control" name="dob" value="<?php echo set_value('dob',$before->dob);?>">

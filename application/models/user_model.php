@@ -49,7 +49,7 @@ class User_model extends CI_Model
 			);
 		return $college;
 	}
-	public function create($name,$email,$password,$accesslevel,$contact,$facebookid,$twitterid,$instagramid,$dob,$sex,$college)
+	public function create($name,$email,$password,$accesslevel,$contact,$facebookid,$twitterid,$instagramid,$dob,$sex,$college,$city)
 	{
 		$data  = array(
 			'name' => $name,
@@ -62,6 +62,7 @@ class User_model extends CI_Model
             'instagramid'=> $instagramid,
             'dob'=> $dob,
             'sex'=> $sex,
+            'city'=> $city,
             'college'=> $college
 		);
 		$query=$this->db->insert( 'user', $data );
@@ -140,7 +141,7 @@ LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
 		return $query;
 	}
 	
-	public function edit($id,$name,$email,$password,$accesslevel,$contact,$facebookid,$twitterid,$instagramid,$dob,$sex,$college)
+	public function edit($id,$name,$email,$password,$accesslevel,$contact,$facebookid,$twitterid,$instagramid,$dob,$sex,$college,$city)
 	{
 		$data  = array(
 			'name' => $name,
@@ -152,6 +153,7 @@ LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
             'instagramid'=> $instagramid,
             'dob'=> $dob,
             'sex'=> $sex,
+            'city'=> $city,
             'college'=> $college
 		);
 		if($password != "")
@@ -160,6 +162,20 @@ LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
 		$query=$this->db->update( 'user', $data );
         
 		return 1;
+	}
+    
+	public function changepassword($id,$password)
+	{
+		if($password != "")
+        {
+			$password =md5($password);
+		    $this->db->query("UPDATE `user` SET `password`='$password' WHERE `id`='$id'");
+            return 1;
+        }
+        else
+        {
+		    return 0;
+        }
 	}
     
 	public function getuserimagebyid($id)
@@ -172,18 +188,18 @@ LEFT OUTER JOIN `user` ON `user`.`id`=`userpost`.`user`
 		$query=$this->db->query("DELETE FROM `user` WHERE `id`='$id'");
 	}
     
-	function changepassword($id,$password)
-	{
-		$data  = array(
-			'password' =>md5($password),
-		);
-		$this->db->where('id',$id);
-		$query=$this->db->update( 'user', $data );
-		if(!$query)
-			return  0;
-		else
-			return  1;
-	}
+//	function changepassword($id,$password)
+//	{
+//		$data  = array(
+//			'password' =>md5($password),
+//		);
+//		$this->db->where('id',$id);
+//		$query=$this->db->update( 'user', $data );
+//		if(!$query)
+//			return  0;
+//		else
+//			return  1;
+//	}
     
     public function getuserdropdown()
 	{

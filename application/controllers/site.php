@@ -108,6 +108,7 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('dob','dob','trim');
 		$this->form_validation->set_rules('sex','sex','trim');
 		$this->form_validation->set_rules('college','college','trim');
+		$this->form_validation->set_rules('city','city','trim');
 //		$this->form_validation->set_rules('json','json','trim');
 		if($this->form_validation->run() == FALSE)	
 		{
@@ -136,13 +137,14 @@ class Site extends CI_Controller
             $dob=$this->input->post('dob');
             $sex=$this->input->post('sex');
             $college=$this->input->post('college');
+            $city=$this->input->post('city');
             
 			if($dob != "")
 			{
 				$dob = date("Y-m-d",strtotime($dob));
 			}
             
-			if($this->user_model->create($name,$email,$password,$accesslevel,$contact,$facebookid,$twitterid,$instagramid,$dob,$sex,$college)==0)
+			if($this->user_model->create($name,$email,$password,$accesslevel,$contact,$facebookid,$twitterid,$instagramid,$dob,$sex,$college,$city)==0)
 			$data['alerterror']="New user could not be created.";
 			else
 			$data['alertsuccess']="User created Successfully.";
@@ -229,6 +231,13 @@ class Site extends CI_Controller
         $elements[9]->alias="instagramid";
        
         
+        $elements[10]=new stdClass();
+        $elements[10]->field="`user`.`city`";
+        $elements[10]->sort="1";
+        $elements[10]->header="city";
+        $elements[10]->alias="city";
+       
+        
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
@@ -255,16 +264,19 @@ class Site extends CI_Controller
 	{
 		$access = array("1");
 		$this->checkaccess($access);
+        $userid=$this->input->get('id');
 		$data[ 'status' ] =$this->user_model->getstatusdropdown();
 		$data['accesslevel']=$this->user_model->getaccesslevels();
 		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
         $data[ 'sex' ] =$this->user_model->getsexdropdown();
 		$data[ 'college' ] =$this->college_model->getcollegedropdown();
 		$data['before']=$this->user_model->beforeedit($this->input->get('id'));
+//		$data['before']=$this->user_model->beforeedit($userid);
+		$data['table']=$this->userpost_model->viewuserpostbyuser($userid);
 		$data['page']='edituser';
 		$data['page2']='block/userblock';
 		$data['title']='Edit User';
-		$this->load->view('templatewith2',$data);
+		$this->load->view('template',$data);
 	}
 	function editusersubmit()
 	{
@@ -285,6 +297,7 @@ class Site extends CI_Controller
 		$this->form_validation->set_rules('dob','dob','trim');
 		$this->form_validation->set_rules('sex','sex','trim');
 		$this->form_validation->set_rules('college','college','trim');
+		$this->form_validation->set_rules('city','city','trim');
         
 		if($this->form_validation->run() == FALSE)	
 		{
@@ -317,6 +330,7 @@ class Site extends CI_Controller
             $dob=$this->input->post('dob');
             $sex=$this->input->post('sex');
             $college=$this->input->post('college');
+            $city=$this->input->post('city');
 //            $category=$this->input->get_post('category');
             
             
@@ -325,7 +339,7 @@ class Site extends CI_Controller
 				$dob = date("Y-m-d",strtotime($dob));
 			}
             
-			if($this->user_model->edit($id,$name,$email,$password,$accesslevel,$contact,$facebookid,$twitterid,$instagramid,$dob,$sex,$college)==0)
+			if($this->user_model->edit($id,$name,$email,$password,$accesslevel,$contact,$facebookid,$twitterid,$instagramid,$dob,$sex,$college,$city)==0)
 			$data['alerterror']="User Editing was unsuccesful";
 			else
 			$data['alertsuccess']="User edited Successfully.";
@@ -561,6 +575,13 @@ class Site extends CI_Controller
         $elements[4]->alias="timestamp";
         
         
+        $elements[5]=new stdClass();
+        $elements[5]->field="`posttype`.`name`";
+        $elements[5]->sort="1";
+        $elements[5]->header="Platform";
+        $elements[5]->alias="posttypename";
+        
+        
         $search=$this->input->get_post("search");
         $pageno=$this->input->get_post("pageno");
         $orderby=$this->input->get_post("orderby");
@@ -577,7 +598,7 @@ class Site extends CI_Controller
             $orderorder="ASC";
         }
        
-        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `post`");
+        $data["message"]=$this->chintantable->query($pageno,$maxrow,$orderby,$orderorder,$search,$elements,"FROM `post` LEFT OUTER JOIN `posttype` ON `posttype`.`id`=`post`.`posttype`");
         
 		$this->load->view("json",$data);
 	} 
@@ -868,7 +889,7 @@ class Site extends CI_Controller
 			else
 			$data['alertsuccess']="userpost edited Successfully.";
 			
-			$data['redirect']="site/viewuserpost?id=".$user;
+			$data['redirect']="site/edituser?id=".$user;
 			$this->load->view("redirect2",$data);
 			
 		}
@@ -1251,6 +1272,60 @@ class Site extends CI_Controller
 			$data['alerterror']="Profile Editing was unsuccesful";
 			else
 			$data['alertsuccess']="Profile edited Successfully.";
+			
+			$data['redirect']="site/viewnormaluserprofile";
+			//$data['other']="template=$template";
+			$this->load->view("redirect",$data);
+			
+		}
+	}
+	
+	function changepassword()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+//		$data[ 'status' ] =$this->user_model->getstatusdropdown();
+//		$data['accesslevel']=$this->user_model->getaccesslevels();
+//		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
+//        $data[ 'sex' ] =$this->user_model->getsexdropdown();
+//		$data[ 'college' ] =$this->college_model->getcollegedropdown();
+//		$data['before']=$this->user_model->beforeedit($this->session->userdata('id'));
+		$data['page']='changepassword';
+//		$data['page2']='block/userblock';
+		$data['title']='Change Password';
+		$this->load->view('template',$data);
+	}
+    
+	function changepasswordsubmit()
+	{
+		$access = array("2");
+		$this->checkaccess($access);
+		$this->form_validation->set_rules('password','Password','trim|min_length[6]|max_length[30]');
+		$this->form_validation->set_rules('confirmpassword','Confirm Password','trim|matches[password]');
+        
+		if($this->form_validation->run() == FALSE)	
+		{
+			$data['alerterror'] = validation_errors();
+    //		$data[ 'status' ] =$this->user_model->getstatusdropdown();
+    //		$data['accesslevel']=$this->user_model->getaccesslevels();
+    //		$data[ 'logintype' ] =$this->user_model->getlogintypedropdown();
+    //        $data[ 'sex' ] =$this->user_model->getsexdropdown();
+    //		$data[ 'college' ] =$this->college_model->getcollegedropdown();
+    //		$data['before']=$this->user_model->beforeedit($this->session->userdata('id'));
+            $data['page']='changepassword';
+    //		$data['page2']='block/userblock';
+            $data['title']='Change Password';
+            $this->load->view('template',$data);
+		}
+		else
+		{
+            
+            $id=$this->input->get_post('id');
+            $password=$this->input->get_post('password');
+			if($this->user_model->changepassword($id,$password)==0)
+			$data['alerterror']="Changed Password unsuccesful";
+			else
+			$data['alertsuccess']="Change Password Successfully.";
 			
 			$data['redirect']="site/viewnormaluserprofile";
 			//$data['other']="template=$template";

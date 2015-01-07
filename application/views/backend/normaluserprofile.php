@@ -1,7 +1,11 @@
 <div class=" row" style="padding:1% 0;">
-	<div class="col-md-10">
+	<div class="col-md-8">
 	
 		<a class="btn btn-primary pull-right"  href="<?php echo site_url('site/editnormaluser'); ?>"><i class="icon-plus"></i>Edit Profile </a> &nbsp; 
+	</div>
+	<div class="col-md-2">
+	
+		<a class="btn btn-primary pull-right"  href="<?php echo site_url('site/changepassword'); ?>"><i class="icon-plus"></i>Change Password</a> &nbsp; 
 	</div>
 	
 </div>

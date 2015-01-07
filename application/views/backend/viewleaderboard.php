@@ -5,7 +5,7 @@
                 Campassadors Details
             </header>
 			<div class="drawchintantable">
-                <?php $this->chintantable->createsearch("Campassadors List");?>
+                <?php $this->chintantable->createsearch("");?>
                 <table class="table table-striped table-hover" id="" cellpadding="0" cellspacing="0" >
                 <thead>
                     <tr>
