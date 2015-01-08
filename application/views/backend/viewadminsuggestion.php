@@ -22,7 +22,7 @@
                         <th data-field="text">text</th>
                         <th data-field="image">image</th>
                         <th data-field="timestamp">Timestamp</th>
-<!--                        <th data-field="action"> Actions </th>-->
+                        <th data-field="action"> Actions </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,7 +35,7 @@
 		<script>
             function drawtable(resultrow) {
                 
-                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.text + "</td><td><img src='<?php echo base_url('uploads');?>/" + resultrow.image + "' width='100px' height='auto'></td><td>" + resultrow.timestamp + "</td><tr>";
+                return "<tr><td>" + resultrow.id + "</td><td>" + resultrow.text + "</td><td><img src='<?php echo base_url('uploads');?>/" + resultrow.image + "' width='100px' height='auto'></td><td>" + resultrow.timestamp + "</td><td><a class='btn btn-primary btn-xs' href='<?php echo site_url('site/editsuggestion?id=');?>"+resultrow.id +"'><i class='icon-pencil'></i></a><a class='btn btn-danger btn-xs' href='<?php echo site_url('site/deletesuggestion?id='); ?>"+resultrow.id +"'><i class='icon-trash '></i></td></tr>";
             }
             generatejquery('<?php echo $base_url;?>');
         </script>

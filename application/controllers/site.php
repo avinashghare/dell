@@ -1483,7 +1483,7 @@ class Site extends CI_Controller
     
 	function editsuggestion()
 	{
-		$access = array("2");
+		$access = array("1");
 		$this->checkaccess($access);
 		$data['page']='editsuggestion';
 		$data['title']='Edit suggestion';
@@ -1492,7 +1492,7 @@ class Site extends CI_Controller
 	}
 	function editsuggestionsubmit()
 	{
-		$access = array("2");
+		$access = array("1");
 		$this->checkaccess($access);
 		
 		$this->form_validation->set_rules('text','text','trim|required');
@@ -1553,7 +1553,7 @@ class Site extends CI_Controller
 			else
 			$data['alertsuccess']="suggestion edited Successfully.";
 			
-			$data['redirect']="site/viewsuggestion";
+			$data['redirect']="site/viewadminsuggestion";
 			//$data['other']="template=$template";
 			$this->load->view("redirect",$data);
 			
